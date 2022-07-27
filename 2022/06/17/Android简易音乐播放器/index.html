@@ -1,0 +1,522 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Android 简易 音乐播放器Mediaplayer简介Android多媒体中的——MediaPlayer，我们可以通过这个API来播放音频和视频 该类是Androd多媒体框架中的一个重要组件，通过该类，我们可以以最小的步骤来获取，解码 和播放音视频。它支持三种不同的媒体来源: 本地资源  内部url,如ContentResolver来获取  外部url(流) 对于Android所支持的的媒体格">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 简易 音乐播放器">
+<meta property="og:url" content="http://example.com/2022/06/17/Android%E7%AE%80%E6%98%93%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Android 简易 音乐播放器Mediaplayer简介Android多媒体中的——MediaPlayer，我们可以通过这个API来播放音频和视频 该类是Androd多媒体框架中的一个重要组件，通过该类，我们可以以最小的步骤来获取，解码 和播放音视频。它支持三种不同的媒体来源: 本地资源  内部url,如ContentResolver来获取  外部url(流) 对于Android所支持的的媒体格">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/fuchajun/Picture/20220418102858.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/fuchajun/Picture/20220418103210.png">
+<meta property="article:published_time" content="2022-06-17T08:30:21.000Z">
+<meta property="article:modified_time" content="2022-07-06T14:52:01.466Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Service">
+<meta property="article:tag" content="Mediaplayer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/fuchajun/Picture/20220418102858.png">
+  
+  
+  <title>Android 简易 音乐播放器 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>浮槎菌の小栈</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Android 简易 音乐播放器">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-06-17 16:30" pubdate>
+        2022年6月17日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      10k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      85 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Android 简易 音乐播放器</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Android-简易-音乐播放器"><a href="#Android-简易-音乐播放器" class="headerlink" title="Android 简易 音乐播放器"></a>Android 简易 音乐播放器</h1><h2 id="Mediaplayer简介"><a href="#Mediaplayer简介" class="headerlink" title="Mediaplayer简介"></a>Mediaplayer简介</h2><h5 id="Android多媒体中的——MediaPlayer，我们可以通过这个API来播放音频和视频-该类是Androd多媒体框架中的一个重要组件，通过该类，我们可以以最小的步骤来获取，解码-和播放音视频。它支持三种不同的媒体来源"><a href="#Android多媒体中的——MediaPlayer，我们可以通过这个API来播放音频和视频-该类是Androd多媒体框架中的一个重要组件，通过该类，我们可以以最小的步骤来获取，解码-和播放音视频。它支持三种不同的媒体来源" class="headerlink" title="Android多媒体中的——MediaPlayer，我们可以通过这个API来播放音频和视频 该类是Androd多媒体框架中的一个重要组件，通过该类，我们可以以最小的步骤来获取，解码 和播放音视频。它支持三种不同的媒体来源:"></a>Android多媒体中的——MediaPlayer，我们可以通过这个API来播放音频和视频 该类是Androd多媒体框架中的一个重要组件，通过该类，我们可以以最小的步骤来获取，解码 和播放音视频。它支持三种不同的媒体来源:</h5><ul>
+<li><p>本地资源</p>
+</li>
+<li><p>内部url,如ContentResolver来获取</p>
+</li>
+<li><p>外部url(流) 对于Android所支持的的媒体格式表</p>
+</li>
+</ul>
+<h4 id="实例化"><a href="#实例化" class="headerlink" title="实例化"></a>实例化</h4><figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> MediaPlayer mediaPlayer;<br>mediaPlayer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MediaPlayer</span>();<span class="hljs-comment">//可以放在onCreate()方法里</span><br>mediaPlayer = MediaPlayer.create(getApplicationContext(),R.raw.zebrazebra);<span class="hljs-comment">//   可以放在class MusicControl extends Binder中</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="设置播放文件"><a href="#设置播放文件" class="headerlink" title="设置播放文件"></a>设置播放文件</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//①raw下的资源：</span><br>MediaPlayer.create(<span class="hljs-built_in">this</span>, R.raw.test);<br><br><span class="hljs-comment">//②本地文件路径：</span><br>mp.setDataSource(<span class="hljs-string">&quot;/sdcard/test.mp3&quot;</span>);<br><br><span class="hljs-comment">//③网络URL文件：</span><br>mp.setDataSource(<span class="hljs-string">&quot;http://www.xxx.com/music/test.mp3&quot;</span>);<br><span class="hljs-comment">//关于setDataSource,下一篇博文会做更加详细的介绍</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Mediaplayer中的常用方法"><a href="#Mediaplayer中的常用方法" class="headerlink" title="Mediaplayer中的常用方法"></a>Mediaplayer中的常用方法</h3><ul>
+<li><p><strong>void reset() 重置MediaPlayer至未初始化状态</strong></p>
+</li>
+<li><p><strong>void start () 开始</strong></p>
+</li>
+<li><p><strong>void stop () 停止</strong></p>
+</li>
+<li><p><strong>void pause () 暂停</strong></p>
+</li>
+<li><p><strong>int getCurrentPosition() 获取当前播放的位置</strong></p>
+</li>
+<li><p><strong>int getDuration() 得到文件的时间</strong></p>
+</li>
+<li><p><strong>void release () 回收流媒体资源。</strong></p>
+</li>
+<li><p><strong>void seekTo(int msec) 指定播放的位置（以毫秒为单位的时间）</strong></p>
+</li>
+<li><p><strong>void setLooping(boolean looping) 设置是否单曲循环</strong></p>
+</li>
+<li><p><strong>boolean isLooping () 是否循环播放</strong></p>
+</li>
+<li><p><strong>boolean isPlaying() 是否正在播放</strong></p>
+</li>
+</ul>
+<h3 id="音乐播放器的一般步骤"><a href="#音乐播放器的一般步骤" class="headerlink" title="音乐播放器的一般步骤"></a>音乐播放器的一般步骤</h3><ul>
+<li><p>reset();  &#x2F;&#x2F;重置</p>
+</li>
+<li><p>setDataSource(song_path);</p>
+</li>
+<li><p>prepare(); &#x2F;&#x2F;准备</p>
+</li>
+<li><p>start();  &#x2F;&#x2F;播放</p>
+</li>
+<li><p>pause();  &#x2F;&#x2F;暂停</p>
+</li>
+<li><p>start(); &#x2F;&#x2F;继续播放</p>
+</li>
+<li><p>stop(); &#x2F;&#x2F;停止</p>
+</li>
+<li><p>release(); &#x2F;&#x2F;释放音乐播放器</p>
+</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="布局文件"><a href="#布局文件" class="headerlink" title="布局文件"></a>布局文件</h3><h4 id="activity-music-xml"><a href="#activity-music-xml" class="headerlink" title="activity_music.xml"></a>activity_music.xml</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;utf-8&quot;</span>?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">LinearLayout</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">xmlns:app</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res-auto&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">xmlns:tools</span>=<span class="hljs-string">&quot;http://schemas.android.com/tools&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">tools:context</span>=<span class="hljs-string">&quot;.MediaPlayer.MusicActivity&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:gravity</span>=<span class="hljs-string">&quot;center&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:orientation</span>=<span class="hljs-string">&quot;vertical&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:background</span>=<span class="hljs-string">&quot;@drawable/image14&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">ImageView</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/iv_disk&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:background</span>=<span class="hljs-string">&quot;@drawable/disk&quot;</span></span><br><span class="hljs-tag"></span><br><span class="hljs-tag">        <span class="hljs-attr">android:layout_marginTop</span>=<span class="hljs-string">&quot;120dp&quot;</span>/&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">SeekBar</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/sb_pg&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:progressBackgroundTint</span>=<span class="hljs-string">&quot;#000000&quot;</span></span><br><span class="hljs-tag">        /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">RelativeLayout</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;match_parent&quot;</span></span><br><span class="hljs-tag"></span><br><span class="hljs-tag">        &gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">TextView</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/tv_pg&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;00:00&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_marginLeft</span>=<span class="hljs-string">&quot;20dp&quot;</span>/&gt;</span><br><br><br>        <span class="hljs-tag">&lt;<span class="hljs-name">TextView</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/tv_tt&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_marginLeft</span>=<span class="hljs-string">&quot;300dp&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;00:00&quot;</span> /&gt;</span><br><br><br><span class="hljs-tag">&lt;<span class="hljs-name">LinearLayout</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:layout_marginTop</span>=<span class="hljs-string">&quot;30dp&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">Button</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/btn_pm&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_weight</span>=<span class="hljs-string">&quot;1&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;播放音乐&quot;</span> /&gt;</span><br><br>        <span class="hljs-tag">&lt;<span class="hljs-name">Button</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/btn_sp&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_toEndOf</span>=<span class="hljs-string">&quot;@+id/btn_pm&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_weight</span>=<span class="hljs-string">&quot;1&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;暂停播放&quot;</span></span><br><span class="hljs-tag">            /&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">Button</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/btn_cp&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;继续播放&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_weight</span>=<span class="hljs-string">&quot;1&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_toEndOf</span>=<span class="hljs-string">&quot;@+id/btn_sp&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">Button</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/btn_ep&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;退出播放&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_weight</span>=<span class="hljs-string">&quot;1&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:layout_toEndOf</span>=<span class="hljs-string">&quot;@id/btn_cp&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">LinearLayout</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">RelativeLayout</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">LinearLayout</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/fuchajun/Picture/20220418102858.png" srcset="/img/loading.gif" lazyload alt="布局效果"></p>
+<h3 id="Mediaplayer实现类"><a href="#Mediaplayer实现类" class="headerlink" title="Mediaplayer实现类"></a>Mediaplayer实现类</h3><h4 id="public-class-MediaPlayerService-extends-Service"><a href="#public-class-MediaPlayerService-extends-Service" class="headerlink" title="public class MediaPlayerService extends Service"></a>public class MediaPlayerService extends Service</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.qst.helloworld.MediaPlayer;<br><br><span class="hljs-keyword">import</span> android.app.Service;<br><span class="hljs-keyword">import</span> android.content.Intent;<br><span class="hljs-keyword">import</span> android.media.MediaPlayer;<br><span class="hljs-keyword">import</span> android.os.Binder;<br><span class="hljs-keyword">import</span> android.os.Bundle;<br><span class="hljs-keyword">import</span> android.os.IBinder;<br><span class="hljs-keyword">import</span> android.os.Message;<br><br><span class="hljs-keyword">import</span> com.qst.helloworld.R;<br><span class="hljs-keyword">import</span> java.util.Timer;<br><span class="hljs-keyword">import</span> java.util.TimerTask;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MediaPlayerService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Service</span> &#123;<br>    <span class="hljs-keyword">private</span> MediaPlayer mediaPlayer;<br>    <span class="hljs-keyword">private</span> Timer timer;<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">MediaPlayerService</span><span class="hljs-params">()</span> &#123;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> IBinder <span class="hljs-title function_">onBind</span><span class="hljs-params">(Intent intent)</span> &#123;<br>        <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Return the communication channel to the service.</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MusicControl</span>();<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onCreate</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">super</span>.onCreate();<br>            mediaPlayer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MediaPlayer</span>();<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">onStartCommand</span><span class="hljs-params">(Intent intent, <span class="hljs-type">int</span> flags, <span class="hljs-type">int</span> startId)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.onStartCommand(intent, flags, startId);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onDestroy</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">super</span>.onDestroy();<br>    &#125;<br><br>    <span class="hljs-comment">//增加计时器</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addTimer</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-keyword">if</span>(timer == <span class="hljs-literal">null</span>)&#123;<br>            timer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timer</span>();<br>            <span class="hljs-type">TimerTask</span> <span class="hljs-variable">task</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TimerTask</span>() &#123;<br>                <span class="hljs-meta">@Override</span><br>                <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>                    <span class="hljs-type">int</span> <span class="hljs-variable">duration</span> <span class="hljs-operator">=</span> mediaPlayer.getDuration();<br>                    <span class="hljs-type">int</span> <span class="hljs-variable">currentPos</span> <span class="hljs-operator">=</span> mediaPlayer.getCurrentPosition();<br>                    <span class="hljs-type">Message</span> <span class="hljs-variable">msg</span> <span class="hljs-operator">=</span> MusicActivity.handler.obtainMessage();<br>                    <span class="hljs-type">Bundle</span> <span class="hljs-variable">bundle</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Bundle</span>();<br>                    bundle.putInt(<span class="hljs-string">&quot;duration&quot;</span>,duration);<br>                    bundle.putInt(<span class="hljs-string">&quot;currentPosition&quot;</span>,currentPos);<br>                    msg.setData(bundle);<br>                    <span class="hljs-comment">//将消息发送到主线程队列</span><br>                    MusicActivity.handler.sendMessage(msg);<br>                &#125;<br>            &#125;;<br>            <span class="hljs-comment">//开始计时任务后的5ms,第一次执行task任务,之后每500ms执行一次</span><br>            timer.schedule(task,<span class="hljs-number">5</span>,<span class="hljs-number">500</span>);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">class</span> <span class="hljs-title class_">MusicControl</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Binder</span>&#123;<br>        <span class="hljs-comment">//播放</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">play</span><span class="hljs-params">()</span>&#123;<br>            mediaPlayer.reset();<br>            mediaPlayer = MediaPlayer.create(getApplicationContext(),R.raw.zebrazebra);<br>            mediaPlayer.start();<br>            addTimer();<br>        &#125;<br><br><br>        <span class="hljs-comment">//暂停</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">pause</span><span class="hljs-params">()</span>&#123;<br>            mediaPlayer.pause();<br>        &#125;<br><br>        <span class="hljs-comment">//继续</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">resume</span><span class="hljs-params">()</span>&#123;<br>            mediaPlayer.start();<br>        &#125;<br>        <span class="hljs-comment">//退出</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">stop</span><span class="hljs-params">()</span>&#123;<br>            mediaPlayer.stop();<br>            mediaPlayer.release();<br>            <span class="hljs-keyword">try</span> &#123;<br>                timer.cancel();<br>            &#125;<br>            <span class="hljs-keyword">catch</span> (Exception e)&#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-comment">//打带</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">seekTo</span><span class="hljs-params">(<span class="hljs-type">int</span> ms)</span>&#123;<br>            mediaPlayer.seekTo(ms);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="主界面"><a href="#主界面" class="headerlink" title="主界面"></a>主界面</h3><h4 id="MusicActivity-class"><a href="#MusicActivity-class" class="headerlink" title="MusicActivity.class"></a>MusicActivity.class</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.qst.helloworld.MediaPlayer;<br><span class="hljs-keyword">import</span> androidx.annotation.NonNull;<br><span class="hljs-keyword">import</span> androidx.appcompat.app.AppCompatActivity;<br><span class="hljs-keyword">import</span> android.animation.ObjectAnimator;<br><span class="hljs-keyword">import</span> android.content.ComponentName;<br><span class="hljs-keyword">import</span> android.content.Intent;<br><span class="hljs-keyword">import</span> android.content.ServiceConnection;<br><span class="hljs-keyword">import</span> android.os.Bundle;<br><span class="hljs-keyword">import</span> android.os.Handler;<br><span class="hljs-keyword">import</span> android.os.IBinder;<br><span class="hljs-keyword">import</span> android.os.Looper;<br><span class="hljs-keyword">import</span> android.os.Message;<br><span class="hljs-keyword">import</span> android.view.View;<br><span class="hljs-keyword">import</span> android.view.animation.LinearInterpolator;<br><span class="hljs-keyword">import</span> android.widget.Button;<br><span class="hljs-keyword">import</span> android.widget.ImageView;<br><span class="hljs-keyword">import</span> android.widget.SeekBar;<br><span class="hljs-keyword">import</span> android.widget.TextView;<br><br><span class="hljs-keyword">import</span> com.qst.helloworld.R;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MusicActivity</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AppCompatActivity</span> &#123;<br><br>    <span class="hljs-keyword">private</span> Button btnPlay,btnPause,btnContinue,btnExit;<br>    <span class="hljs-keyword">private</span>  <span class="hljs-keyword">static</span> TextView tvCurrentTime;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> TextView tvTotalTime;<br>    <span class="hljs-keyword">private</span> ImageView ivDisk;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> SeekBar sbProgress;<br>    <span class="hljs-keyword">private</span> ObjectAnimator animator;<br><br>    <span class="hljs-keyword">private</span> MediaPlayerService.MusicControl control;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">ServiceConnection</span> <span class="hljs-variable">conn</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ServiceConnection</span>() &#123;<br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onServiceConnected</span><span class="hljs-params">(ComponentName componentName, IBinder iBinder)</span> &#123;<br>            control = (MediaPlayerService.MusicControl)iBinder;<br>        &#125;<br><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onServiceDisconnected</span><span class="hljs-params">(ComponentName componentName)</span> &#123;<br>        &#125;<br>    &#125;;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onCreate</span><span class="hljs-params">(Bundle savedInstanceState)</span> &#123;<br>        <span class="hljs-built_in">super</span>.onCreate(savedInstanceState);<br>        setContentView(R.layout.activity_music);<br>        init();<br><br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">init</span><span class="hljs-params">()</span>&#123;<br>        btnPlay = findViewById(R.id.btn_pm);<br>        btnPause = findViewById(R.id.btn_sp);<br>        btnContinue = findViewById(R.id.btn_cp);<br>        btnExit = findViewById(R.id.btn_ep);<br><br>        tvCurrentTime = findViewById(R.id.tv_pg);<br>        tvTotalTime = findViewById(R.id.tv_tt);<br>        ivDisk = findViewById(R.id.iv_disk);<br>        sbProgress = findViewById(R.id.sb_pg);<br><br>        <span class="hljs-type">OnClick</span> <span class="hljs-variable">onClick</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OnClick</span>();<br>        btnPlay.setOnClickListener(onClick);<br>        btnPause.setOnClickListener(onClick);<br>        btnContinue.setOnClickListener(onClick);<br>        btnExit.setOnClickListener(onClick);<br><br>        <span class="hljs-comment">//动画</span><br>        animator = ObjectAnimator.ofFloat(ivDisk,<span class="hljs-string">&quot;rotation&quot;</span>,<span class="hljs-number">0</span>,<span class="hljs-number">360.0F</span>);<br>        animator.setDuration(<span class="hljs-number">10000</span>);<br>        animator.setInterpolator(<span class="hljs-keyword">new</span> <span class="hljs-title class_">LinearInterpolator</span>());<br>        animator.setRepeatCount(-<span class="hljs-number">1</span>);<br><br><br><br>        <span class="hljs-type">Intent</span> <span class="hljs-variable">intent</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Intent</span>(getApplicationContext(),MediaPlayerService.class);<br>        bindService(intent,conn,BIND_AUTO_CREATE);<br><br>        sbProgress.setOnSeekBarChangeListener(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SeekBar</span>.OnSeekBarChangeListener() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onProgressChanged</span><span class="hljs-params">(SeekBar seekBar, <span class="hljs-type">int</span> progress, <span class="hljs-type">boolean</span> fromUser)</span> &#123;<br>                <span class="hljs-keyword">if</span>(fromUser)&#123;<br>                    control.seekTo(progress);<br>                &#125;<br>                <span class="hljs-keyword">if</span>(progress == seekBar.getMax())&#123;<br>                    animator.pause();<br>                &#125;<br>            &#125;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onStartTrackingTouch</span><span class="hljs-params">(SeekBar seekBar)</span> &#123;<br>                control.pause();<br>            &#125;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onStopTrackingTouch</span><span class="hljs-params">(SeekBar seekBar)</span> &#123;<br>                control.resume();<br>            &#125;<br>        &#125;);<br>    &#125;<br>    <span class="hljs-keyword">class</span> <span class="hljs-title class_">OnClick</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">View</span>.OnClickListener&#123;<br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onClick</span><span class="hljs-params">(View view)</span> &#123;<br>            <span class="hljs-keyword">switch</span> (view.getId())&#123;<br>                <span class="hljs-keyword">case</span> R.id.btn_pm:<br>                    control.play();<br>                    animator.start();<br>                    <span class="hljs-keyword">break</span> ;<br>                <span class="hljs-keyword">case</span> R.id.btn_sp:<br>                    control.pause();<br>                    animator.pause();<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">case</span> R.id.btn_cp:<br>                    control.resume();<br>                    animator.resume();<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">case</span> R.id.btn_ep:<br>                    finish();<br>                    <span class="hljs-keyword">break</span>;<br><br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onDestroy</span><span class="hljs-params">()</span> &#123;<br>        control.stop();<br>        unbindService(conn);<br>        <span class="hljs-built_in">super</span>.onDestroy();<br>    &#125;<br>    <span class="hljs-comment">//获取从MediaPlayerService传递过来的消息</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">Handler</span> <span class="hljs-variable">handler</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Handler</span>(Looper.myLooper())&#123;<br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">handleMessage</span><span class="hljs-params">(<span class="hljs-meta">@NonNull</span> Message msg)</span> &#123;<br>            <span class="hljs-built_in">super</span>.handleMessage(msg);<br>            <span class="hljs-type">Bundle</span> <span class="hljs-variable">bundle</span> <span class="hljs-operator">=</span> msg.getData();<span class="hljs-comment">//获取从子线程发过来的音乐播放进度</span><br>            <span class="hljs-type">int</span> <span class="hljs-variable">duration</span> <span class="hljs-operator">=</span> bundle.getInt(<span class="hljs-string">&quot;duration&quot;</span>);<span class="hljs-comment">//歌曲总时长</span><br>            <span class="hljs-type">int</span> <span class="hljs-variable">currentPosition</span> <span class="hljs-operator">=</span> bundle.getInt(<span class="hljs-string">&quot;currentPosition&quot;</span>);<br>            sbProgress.setMax(duration);<br>            sbProgress.setProgress(currentPosition);<br>            <span class="hljs-type">String</span> <span class="hljs-variable">totalTime</span> <span class="hljs-operator">=</span> msToMinSec(duration);<br>            <span class="hljs-type">String</span> <span class="hljs-variable">currentTime</span> <span class="hljs-operator">=</span> msToMinSec(currentPosition);<br>            tvTotalTime.setText(totalTime);<br>            tvCurrentTime.setText(currentTime);<br>        &#125;<br>    &#125;;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">msToMinSec</span><span class="hljs-params">(<span class="hljs-type">int</span> ms)</span>&#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">sec</span> <span class="hljs-operator">=</span> ms / <span class="hljs-number">1000</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">min</span> <span class="hljs-operator">=</span> sec /<span class="hljs-number">60</span>;<br>        sec -= min * <span class="hljs-number">60</span>;<br>        <span class="hljs-keyword">return</span> String.format(<span class="hljs-string">&quot;%02d:%02d&quot;</span>,min,sec);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h3><p><img src="https://cdn.jsdelivr.net/gh/fuchajun/Picture/20220418103210.png" srcset="/img/loading.gif" lazyload alt="运行结果"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Android/">Android</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Android/Service/">Service</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Android/Service/Mediaplayer/">Mediaplayer</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Android/">Android</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Service/">Service</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Mediaplayer/">Mediaplayer</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/07/01/JDKJREJVM/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">每日一烤:JDK,JRE,JVM三者之间的关系</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/06/16/AndroidDownloadService/">
+                        <span class="hidden-mobile">Android Download Service</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

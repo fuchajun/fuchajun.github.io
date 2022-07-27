@@ -1,0 +1,462 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Java语言中关键字static的作用是什么？static的主要作用有两个： 为某种特定数据类型或对象分配与创建对象个数无关的单一的存储空间。 使得某个方法或属性与类而不是对象关联在一起，即在不创建对象的情况下可通过类直接调用方法 或使用类的属性。  具体而言static又可分为4种使用方式： 修饰成员变量。用static关键字修饰的静态变量在内存中只有一个副本。只要静态变量所在的类被加 载，这个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="每日一烤:Java关键字(static)">
+<meta property="og:url" content="http://example.com/2022/07/09/Java%E5%85%B3%E9%94%AE%E5%AD%97(static)/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Java语言中关键字static的作用是什么？static的主要作用有两个： 为某种特定数据类型或对象分配与创建对象个数无关的单一的存储空间。 使得某个方法或属性与类而不是对象关联在一起，即在不创建对象的情况下可通过类直接调用方法 或使用类的属性。  具体而言static又可分为4种使用方式： 修饰成员变量。用static关键字修饰的静态变量在内存中只有一个副本。只要静态变量所在的类被加 载，这个">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-08T23:11:11.000Z">
+<meta property="article:modified_time" content="2022-07-18T09:04:04.121Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="每日一烤">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>每日一烤:Java关键字(static) - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>浮槎菌の小栈</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="每日一烤:Java关键字(static)">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-07-09 07:11" pubdate>
+        2022年7月9日 早上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      479 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      4 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">每日一烤:Java关键字(static)</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Java语言中关键字static的作用是什么？"><a href="#Java语言中关键字static的作用是什么？" class="headerlink" title="Java语言中关键字static的作用是什么？"></a>Java语言中关键字static的作用是什么？</h1><h3 id="static的主要作用有两个："><a href="#static的主要作用有两个：" class="headerlink" title="static的主要作用有两个："></a>static的主要作用有两个：</h3><ol>
+<li><h5 id="为某种特定数据类型或对象分配与创建对象个数无关的单一的存储空间。"><a href="#为某种特定数据类型或对象分配与创建对象个数无关的单一的存储空间。" class="headerlink" title="为某种特定数据类型或对象分配与创建对象个数无关的单一的存储空间。"></a>为某种特定数据类型或对象分配与创建对象个数无关的单一的存储空间。</h5></li>
+<li><h5 id="使得某个方法或属性与类而不是对象关联在一起，即在不创建对象的情况下可通过类直接调用方法-或使用类的属性。"><a href="#使得某个方法或属性与类而不是对象关联在一起，即在不创建对象的情况下可通过类直接调用方法-或使用类的属性。" class="headerlink" title="使得某个方法或属性与类而不是对象关联在一起，即在不创建对象的情况下可通过类直接调用方法 或使用类的属性。"></a>使得某个方法或属性与类而不是对象关联在一起，即在不创建对象的情况下可通过类直接调用方法 或使用类的属性。</h5></li>
+</ol>
+<h4 id="具体而言static又可分为4种使用方式："><a href="#具体而言static又可分为4种使用方式：" class="headerlink" title="具体而言static又可分为4种使用方式："></a>具体而言static又可分为4种使用方式：</h4><ol>
+<li><h5 id="修饰成员变量。用static关键字修饰的静态变量在内存中只有一个副本。只要静态变量所在的类被加-载，这个静态变量就会被分配空间，可以使用’’类-静态变量’’和’’对象-静态变量’’的方法使用。"><a href="#修饰成员变量。用static关键字修饰的静态变量在内存中只有一个副本。只要静态变量所在的类被加-载，这个静态变量就会被分配空间，可以使用’’类-静态变量’’和’’对象-静态变量’’的方法使用。" class="headerlink" title="修饰成员变量。用static关键字修饰的静态变量在内存中只有一个副本。只要静态变量所在的类被加 载，这个静态变量就会被分配空间，可以使用’’类.静态变量’’和’’对象.静态变量’’的方法使用。"></a>修饰成员变量。用static关键字修饰的静态变量在内存中只有一个副本。只要静态变量所在的类被加 载，这个静态变量就会被分配空间，可以使用’’类.静态变量’’和’’对象.静态变量’’的方法使用。</h5></li>
+<li><h5 id="修饰成员方法。static修饰的方法无需创建对象就可以被调用。static方法中不能使用this和super关-键字，不能调用非static方法，只能访问所属类的静态成员变量和静态成员方法。"><a href="#修饰成员方法。static修饰的方法无需创建对象就可以被调用。static方法中不能使用this和super关-键字，不能调用非static方法，只能访问所属类的静态成员变量和静态成员方法。" class="headerlink" title="修饰成员方法。static修饰的方法无需创建对象就可以被调用。static方法中不能使用this和super关 键字，不能调用非static方法，只能访问所属类的静态成员变量和静态成员方法。"></a>修饰成员方法。static修饰的方法无需创建对象就可以被调用。static方法中不能使用this和super关 键字，不能调用非static方法，只能访问所属类的静态成员变量和静态成员方法。</h5></li>
+<li><h5 id="修饰代码块。JVM在加载类的时候会执行static代码块。static代码块常用于初始化静态变量。static-代码块只会被执行一次。"><a href="#修饰代码块。JVM在加载类的时候会执行static代码块。static代码块常用于初始化静态变量。static-代码块只会被执行一次。" class="headerlink" title="修饰代码块。JVM在加载类的时候会执行static代码块。static代码块常用于初始化静态变量。static 代码块只会被执行一次。"></a>修饰代码块。JVM在加载类的时候会执行static代码块。static代码块常用于初始化静态变量。static 代码块只会被执行一次。</h5></li>
+<li><h5 id="修饰内部类。static内部类可以不依赖外部类实例对象而被实例化。静态内部类不能与外部类有相同-的名字，不能访问普通成员变量，只能访问外部类中的静态成员和静态成员方法"><a href="#修饰内部类。static内部类可以不依赖外部类实例对象而被实例化。静态内部类不能与外部类有相同-的名字，不能访问普通成员变量，只能访问外部类中的静态成员和静态成员方法" class="headerlink" title="修饰内部类。static内部类可以不依赖外部类实例对象而被实例化。静态内部类不能与外部类有相同 的名字，不能访问普通成员变量，只能访问外部类中的静态成员和静态成员方法"></a>修饰内部类。static内部类可以不依赖外部类实例对象而被实例化。静态内部类不能与外部类有相同 的名字，不能访问普通成员变量，只能访问外部类中的静态成员和静态成员方法</h5></li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%83%A4/">每日一烤</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%83%A4/">每日一烤</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/07/10/%E7%AE%80%E8%BF%B0throw%E4%B8%8Ethrows%E7%9A%84%E5%8C%BA%E5%88%AB/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">每日一烤:简述throw与throws的区别</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/08/Java%E5%85%B3%E9%94%AE%E5%AD%97(%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6)/">
+                        <span class="hidden-mobile">每日一烤:Java关键字(访问修饰符)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

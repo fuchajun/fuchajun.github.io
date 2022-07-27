@@ -1,0 +1,462 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Android Service DownloadTaskServiceService简介Service后台服务:与Activity相比,Service运行在后台,Activity运行在前台,一般我们会把在后台长时间运行的代码放在Service中后台任务:不需要前台界面或者前台界面关闭仍然能够运行的任务Eg:后台下载任务,音乐播放任务,录音服务开发Service继承Service1234Servic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Download Service">
+<meta property="og:url" content="http://example.com/2022/06/16/AndroidDownloadService/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Android Service DownloadTaskServiceService简介Service后台服务:与Activity相比,Service运行在后台,Activity运行在前台,一般我们会把在后台长时间运行的代码放在Service中后台任务:不需要前台界面或者前台界面关闭仍然能够运行的任务Eg:后台下载任务,音乐播放任务,录音服务开发Service继承Service1234Servic">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-16T06:31:51.000Z">
+<meta property="article:modified_time" content="2022-07-06T14:51:51.150Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Service">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>Android Download Service - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>浮槎菌の小栈</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Android Download Service">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-06-16 14:31" pubdate>
+        2022年6月16日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.5k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Android Download Service</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Android-Service-DownloadTask"><a href="#Android-Service-DownloadTask" class="headerlink" title="Android Service DownloadTask"></a>Android Service DownloadTask</h1><h2 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h2><h3 id="Service简介"><a href="#Service简介" class="headerlink" title="Service简介"></a>Service简介</h3><h5 id="Service后台服务-与Activity相比-Service运行在后台-Activity运行在前台-一般我们会把在后台长时间运行的代码放在Service中"><a href="#Service后台服务-与Activity相比-Service运行在后台-Activity运行在前台-一般我们会把在后台长时间运行的代码放在Service中" class="headerlink" title="Service后台服务:与Activity相比,Service运行在后台,Activity运行在前台,一般我们会把在后台长时间运行的代码放在Service中"></a>Service后台服务:与Activity相比,Service运行在后台,Activity运行在前台,一般我们会把在后台长时间运行的代码放在Service中</h5><h5 id="后台任务-不需要前台界面或者前台界面关闭仍然能够运行的任务"><a href="#后台任务-不需要前台界面或者前台界面关闭仍然能够运行的任务" class="headerlink" title="后台任务:不需要前台界面或者前台界面关闭仍然能够运行的任务"></a>后台任务:不需要前台界面或者前台界面关闭仍然能够运行的任务</h5><h5 id="Eg-后台下载任务-音乐播放任务-录音服务"><a href="#Eg-后台下载任务-音乐播放任务-录音服务" class="headerlink" title="Eg:后台下载任务,音乐播放任务,录音服务"></a>Eg:后台下载任务,音乐播放任务,录音服务</h5><h3 id="开发Service"><a href="#开发Service" class="headerlink" title="开发Service"></a>开发Service</h3><h4 id="继承Service"><a href="#继承Service" class="headerlink" title="继承Service"></a>继承Service</h4><figure class="highlight stylus"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><pre><code class="hljs stylus">Service是个抽象类，里面有一个抽象方法，自己重写生命周期方法<br><span class="hljs-function"><span class="hljs-title">onCreate</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-title">onStartCommand</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-title">onDestory</span><span class="hljs-params">()</span></span><br></code></pre></td></tr></table></figure>
+
+<h4 id="注册Service"><a href="#注册Service" class="headerlink" title="注册Service"></a>注册Service</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DownloadService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Service</span> &#123;<br>    <span class="hljs-keyword">class</span> <span class="hljs-title class_">DownloadTask</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Runnable</span>&#123;<br>        <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-variable">totalSize</span> <span class="hljs-operator">=</span> <span class="hljs-number">1024</span>; <span class="hljs-comment">//总大小</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-variable">current</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; <span class="hljs-comment">//当前进度</span><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>            <span class="hljs-keyword">while</span>(current&lt;totalSize)&#123;<br>            Log.d(<span class="hljs-string">&quot;download&quot;</span>, <span class="hljs-string">&quot;run: &quot;</span>+current);<br>            <span class="hljs-keyword">try</span> &#123;<br>                Thread.sleep(<span class="hljs-number">100</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>            current++;<br>          &#125;<br>        &#125;<br>    &#125;<br>    DownloadTask task;<br>    <span class="hljs-comment">//第一次创建会启动</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onCreate</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">super</span>.onCreate();<br>        task = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DownloadTask</span>();<br>        <span class="hljs-type">Thread</span> <span class="hljs-variable">thread</span> <span class="hljs-operator">=</span>  <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(task);<br>        thread.start();<br>    &#125;<br>    <span class="hljs-comment">//每次启动Service都会执行</span><br>    <span class="hljs-comment">//同一个Service可以重复多次启动，只有第一次回创建Service</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">onStartCommand</span><span class="hljs-params">(Intent intent, <span class="hljs-type">int</span> flags, <span class="hljs-type">int</span> startId)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.onStartCommand(intent, flags, startId);<br>    &#125;<br>    <span class="hljs-comment">//定义DownloadBinder这个IBinder</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DownloadBinder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Binder</span>&#123;<br>        <span class="hljs-comment">//设置进度总大小</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getTotal</span><span class="hljs-params">()</span>&#123;<br>            <span class="hljs-keyword">return</span> task.totalSize;<br>        &#125;<br>        <span class="hljs-comment">//里面实现与Activity需要交互的方法,拿到子进程中的下载进度</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getCurrent</span><span class="hljs-params">()</span>&#123;<br>            <span class="hljs-keyword">return</span> task.current;<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">//当Activity绑定Service时，就会调用onBind方法</span><br>    <span class="hljs-comment">//并且返回一个IBinder对象，这个对象最终会返回给Activity，Activity和Service就靠这个IBinder进行交互</span><br>    <span class="hljs-comment">//IBinder是个接口，需要我们自己写这个类，IBinder自己也有实现类Binder，可以直接继承这个实现类</span><br>    <span class="hljs-meta">@Nullable</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> IBinder <span class="hljs-title function_">onBind</span><span class="hljs-params">(Intent intent)</span> &#123;<br>        <span class="hljs-type">IBinder</span> <span class="hljs-variable">binder</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DownloadBinder</span>();<br>        <span class="hljs-keyword">return</span> binder;<br>    &#125;<br>    <span class="hljs-comment">//停止Service就会销毁</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onDestroy</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">super</span>.onDestroy();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="启动Service"><a href="#启动Service" class="headerlink" title="启动Service"></a>启动Service</h4><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">this</span>.startService(<span class="hljs-built_in">int</span>ent)<br></code></pre></td></tr></table></figure>
+
+<h4 id="停止Service"><a href="#停止Service" class="headerlink" title="停止Service"></a>停止Service</h4><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">this</span>.stopService(<span class="hljs-built_in">int</span>ent);<br>停止Service就是销毁Service<br></code></pre></td></tr></table></figure>
+
+<h3 id="绑定Service"><a href="#绑定Service" class="headerlink" title="绑定Service"></a>绑定Service</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**Service虽然运行在后台，但是经常也需要跟前台进行交互</span><br><span class="hljs-comment">比如：</span><br><span class="hljs-comment">下载服务：前台界面至少需要知道下载进度</span><br><span class="hljs-comment">音乐播放：前台不仅需要知道音乐播放进度，还能控制播放的开始暂停和进度</span><br><span class="hljs-comment">等等</span><br><span class="hljs-comment">如果要跟Service进行交互，那么必须绑定Service</span><br><span class="hljs-comment">（1）绑定Service</span><br><span class="hljs-comment">this.bindService(intent,conn,flag)</span><br><span class="hljs-comment">绑定时，如果Service没有启动，会自动启动，但是这样启动的Service在解绑时候，会自动销毁</span><br><span class="hljs-comment">（2）解绑Service</span><br><span class="hljs-comment">this.unbindService(conn)</span><br><span class="hljs-comment">Activity绑定Service进行交互的核心</span><br><span class="hljs-comment">Service中的onBind方法返回IBing对象</span><br><span class="hljs-comment">Activity中BindService绑定时，需要定义一个ServiceConnection**/</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DownloadService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Service</span> &#123;<br>    <span class="hljs-keyword">class</span> <span class="hljs-title class_">DownloadTask</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Runnable</span>&#123;<br>        <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-variable">totalSize</span> <span class="hljs-operator">=</span> <span class="hljs-number">1024</span>; <span class="hljs-comment">//总大小</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-variable">current</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; <span class="hljs-comment">//当前进度</span><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>            <span class="hljs-keyword">while</span>(current&lt;totalSize)&#123;<br>            Log.d(<span class="hljs-string">&quot;download&quot;</span>, <span class="hljs-string">&quot;run: &quot;</span>+current);<br>            <span class="hljs-keyword">try</span> &#123;<br>                Thread.sleep(<span class="hljs-number">100</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>            current++;<br>          &#125;<br>        &#125;<br>    &#125;<br>    DownloadTask task;<br>    <span class="hljs-comment">//第一次创建会启动</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onCreate</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">super</span>.onCreate();<br>        task = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DownloadTask</span>();<br>        <span class="hljs-type">Thread</span> <span class="hljs-variable">thread</span> <span class="hljs-operator">=</span>  <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(task);<br>        thread.start();<br>    &#125;<br>    <span class="hljs-comment">//每次启动Service都会执行</span><br>    <span class="hljs-comment">//同一个Service可以重复多次启动，只有第一次回创建Service</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">onStartCommand</span><span class="hljs-params">(Intent intent, <span class="hljs-type">int</span> flags, <span class="hljs-type">int</span> startId)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.onStartCommand(intent, flags, startId);<br>    &#125;<br>    <span class="hljs-comment">//定义DownloadBinder这个IBinder</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DownloadBinder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Binder</span>&#123;<br>        <span class="hljs-comment">//设置进度总大小</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getTotal</span><span class="hljs-params">()</span>&#123;<br>            <span class="hljs-keyword">return</span> task.totalSize;<br>        &#125;<br>        <span class="hljs-comment">//里面实现与Activity需要交互的方法,拿到子进程中的下载进度</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getCurrent</span><span class="hljs-params">()</span>&#123;<br>            <span class="hljs-keyword">return</span> task.current;<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">//当Activity绑定Service时，就会调用onBind方法</span><br>    <span class="hljs-comment">//并且返回一个IBinder对象，这个对象最终会返回给Activity，Activity和Service就靠这个IBinder进行交互</span><br>    <span class="hljs-comment">//IBinder是个接口，需要我们自己写这个类，IBinder自己也有实现类Binder，可以直接继承这个实现类</span><br>    <span class="hljs-meta">@Nullable</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> IBinder <span class="hljs-title function_">onBind</span><span class="hljs-params">(Intent intent)</span> &#123;<br>        <span class="hljs-type">IBinder</span> <span class="hljs-variable">binder</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DownloadBinder</span>();<br>        <span class="hljs-keyword">return</span> binder;<br>    &#125;<br>    <span class="hljs-comment">//停止Service就会销毁</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onDestroy</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">super</span>.onDestroy();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Android/">Android</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Android/Service/">Service</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Android/">Android</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Service/">Service</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/06/17/Android%E7%AE%80%E6%98%93%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Android 简易 音乐播放器</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/06/09/Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%95%99%E7%A8%8B/">
+                        <span class="hidden-mobile">Hexo搭建个人博客教程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

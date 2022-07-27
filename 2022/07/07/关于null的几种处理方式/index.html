@@ -1,0 +1,524 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="关于null的几种处理方式Java开发中,我们常常会遇到NullPointerException(空指针异常)的问题,java的发明者也曾承认这是个巨大的设计错误.关于null,我们应该了解到如下几点,从而避免很多由null引起的错误.  大小写敏感 null是任何引用类型的初始值 null既不是对象,也不是类型,你可以将它赋值给任何引用类型 null不能赋值给基本数据类型 将null赋值给包装类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="每日一烤:关于null的几种处理方式">
+<meta property="og:url" content="http://example.com/2022/07/07/%E5%85%B3%E4%BA%8Enull%E7%9A%84%E5%87%A0%E7%A7%8D%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="关于null的几种处理方式Java开发中,我们常常会遇到NullPointerException(空指针异常)的问题,java的发明者也曾承认这是个巨大的设计错误.关于null,我们应该了解到如下几点,从而避免很多由null引起的错误.  大小写敏感 null是任何引用类型的初始值 null既不是对象,也不是类型,你可以将它赋值给任何引用类型 null不能赋值给基本数据类型 将null赋值给包装类">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-07T02:41:02.000Z">
+<meta property="article:modified_time" content="2022-07-07T03:42:11.552Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="每日一烤">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>每日一烤:关于null的几种处理方式 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>浮槎菌の小栈</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="每日一烤:关于null的几种处理方式">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-07-07 10:41" pubdate>
+        2022年7月7日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.8k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">每日一烤:关于null的几种处理方式</h1>
+            
+            <div class="markdown-body">
+              <h1 id="关于null的几种处理方式"><a href="#关于null的几种处理方式" class="headerlink" title="关于null的几种处理方式"></a>关于null的几种处理方式</h1><h4 id="Java开发中-我们常常会遇到NullPointerException-空指针异常-的问题-java的发明者也曾承认这是个巨大的设计错误"><a href="#Java开发中-我们常常会遇到NullPointerException-空指针异常-的问题-java的发明者也曾承认这是个巨大的设计错误" class="headerlink" title="Java开发中,我们常常会遇到NullPointerException(空指针异常)的问题,java的发明者也曾承认这是个巨大的设计错误."></a>Java开发中,我们常常会遇到NullPointerException(空指针异常)的问题,java的发明者也曾承认这是个巨大的设计错误.</h4><p>关于null,我们应该了解到如下几点,从而避免很多由null引起的错误.</p>
+<ul>
+<li>大小写敏感</li>
+<li>null是任何引用类型的初始值</li>
+<li>null既不是对象,也不是类型,你可以将它赋值给任何引用类型</li>
+<li>null不能赋值给基本数据类型</li>
+<li>将null赋值给包装类,自动拆箱会报NPE</li>
+<li>带有null的引用类型变量,instanceof会报false</li>
+<li>静态变量为null调用静态方法不会抛出NPE</li>
+<li>建议使用null值安全的方法</li>
+<li>使用&#x3D;&#x3D;或者!&#x3D;判断null</li>
+</ul>
+<h4 id="大小写敏感"><a href="#大小写敏感" class="headerlink" title="大小写敏感"></a>大小写敏感</h4><p>首先，null是Java中的关键字，像是public、static、final。它是大小写敏感的，你不能将null写 成Null或NULL,编辑器将不能识别它们然后报错。 这个问题已经几乎不会出现，因为eclipse和ldea编译器已经给出了编译器提示，所以你不用考虑这 个问题。</p>
+<h4 id="null是任何引用类型的初始值"><a href="#null是任何引用类型的初始值" class="headerlink" title="null是任何引用类型的初始值"></a>null是任何引用类型的初始值</h4><p>null是所有引用类型的默认值，Java中的任何引用变量都将nul作为默认值，也就是说所有Object类下的引用类型默认值都是null。</p>
+<p>这对所有的引用变量都适用。就像是基本类型的默认值一样，例如int的默认值是0，boolean的默认值是false。 下面是基本数据类型的初始值</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>初始值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean</td>
+<td>false</td>
+</tr>
+<tr>
+<td>char</td>
+<td>&#x2F;u0000</td>
+</tr>
+<tr>
+<td>byte</td>
+<td>(byte)0</td>
+</tr>
+<tr>
+<td>short</td>
+<td>(short)0</td>
+</tr>
+<tr>
+<td>int</td>
+<td>0</td>
+</tr>
+<tr>
+<td>long</td>
+<td>0L</td>
+</tr>
+<tr>
+<td>double</td>
+<td>0.0d</td>
+</tr>
+<tr>
+<td>float</td>
+<td>0.0f</td>
+</tr>
+</tbody></table>
+<h4 id="null只是一种特殊的值"><a href="#null只是一种特殊的值" class="headerlink" title="null只是一种特殊的值"></a>null只是一种特殊的值</h4><p>null既不是对象也不是一种类型，它仅是一种特殊的值，你可以将它赋予任何引用类型，你可以将nuIl转换为任何引用类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br><span class="hljs-type">String</span> <span class="hljs-variable">str</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br><span class="hljs-type">Integer</span> <span class="hljs-variable">itr</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br><span class="hljs-type">Double</span> <span class="hljs-variable">dou</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br><span class="hljs-type">Integer</span> <span class="hljs-variable">integer</span> <span class="hljs-operator">=</span> (Integer) <span class="hljs-literal">null</span>;<br><span class="hljs-type">String</span> <span class="hljs-variable">string</span> <span class="hljs-operator">=</span> (String)<span class="hljs-literal">null</span>;<br>System.out.println(<span class="hljs-string">&quot;integer = &quot;</span> + integer);<br>System.out.println(<span class="hljs-string">&quot;string = &quot;</span> + string);<br>&#125;<br><br>[Finished in 567ms]<br>integer = <span class="hljs-type">null</span><br><span class="hljs-variable">string</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span><br></code></pre></td></tr></table></figure>
+
+<p>你可以看到在编译期和运行期内，将null转换成任何的引用类型都是可行的，并且不会抛出空指针异 常。 </p>
+<h4 id="null只能赋值给引用变量，不能赋值给基本类型变量。"><a href="#null只能赋值给引用变量，不能赋值给基本类型变量。" class="headerlink" title="null只能赋值给引用变量，不能赋值给基本类型变量。"></a>null只能赋值给引用变量，不能赋值给基本类型变量。</h4><h4 id="持有null的包装类在进行自动拆箱的时候，不能完成转换，会抛出空指针异常，并且null也不能和基本数据类型进行对比"><a href="#持有null的包装类在进行自动拆箱的时候，不能完成转换，会抛出空指针异常，并且null也不能和基本数据类型进行对比" class="headerlink" title="持有null的包装类在进行自动拆箱的时候，不能完成转换，会抛出空指针异常，并且null也不能和基本数据类型进行对比"></a>持有null的包装类在进行自动拆箱的时候，不能完成转换，会抛出空指针异常，并且null也不能和基本数据类型进行对比</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span>&#123;<br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br><span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br><span class="hljs-type">Integer</span> <span class="hljs-variable">itr</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>System.out.println(itr == i);<br>&#125;<br>&#125;<br><br>[Finished in <span class="hljs-number">1.</span>2s]<br>Exception in thread <span class="hljs-string">&quot;main&quot;</span> java.lang.NullPointerException<br>	at Test.main(Test.java:<span class="hljs-number">5</span>)<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="使用带有null值的引用对象-instanceof操作会返回false"><a href="#使用带有null值的引用对象-instanceof操作会返回false" class="headerlink" title="使用带有null值的引用对象,instanceof操作会返回false"></a>使用带有null值的引用对象,instanceof操作会返回false</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span>&#123;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br><span class="hljs-type">Integer</span> <span class="hljs-variable">isNull</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br><span class="hljs-comment">// instanceof = isInstance 方法</span><br><span class="hljs-keyword">if</span>(isNull <span class="hljs-keyword">instanceof</span> Integer)&#123;<br>System.out.println(<span class="hljs-string">&quot;isNull is instanceof Integer&quot;</span>);<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>System.out.println(<span class="hljs-string">&quot;isNull is not instanceof Integer&quot;</span>);<br>&#125;<br>&#125;<br>&#125;<br><br>[Finished in 572ms]<br>isNull is not <span class="hljs-keyword">instanceof</span> Integer<br></code></pre></td></tr></table></figure>
+
+<p>这是instanceof操作符一个很重要的特性，使得对类型强制转换检查很有用</p>
+<p> 静态变量为null调用静态方法不会抛出NullPointerException。因为静态方法使用了静态绑定。 </p>
+<p>使用Null-Safe方法 你应该使用nul-safe安全的方法，java类库中有很多工具类都提供了静态方法，例如基本数据类型的 包装类，Integer,Double等。例如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">NullSafeMethod</span> &#123;<br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String number;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br><span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> String.valueOf(number);<br><span class="hljs-type">String</span> <span class="hljs-variable">string</span> <span class="hljs-operator">=</span> number.toString();<br>System.out.println(<span class="hljs-string">&quot;s = &quot;</span> + s);<br>System.out.println(<span class="hljs-string">&quot;string = &quot;</span> + string);<br>&#125;<br>&#125;<br><br>[Finished in 565ms]<br>s = <span class="hljs-literal">null</span><br>计划输出:string = <span class="hljs-literal">null</span>,但因报错无法输出<br>报错原因<span class="hljs-type">String</span> <span class="hljs-variable">string</span> <span class="hljs-operator">=</span> number.toString()此行代码<br></code></pre></td></tr></table></figure>
+
+<p>number没有赋值，所以默认为null,使用String.value(number)静态方法没有抛出空指针异常， 但是使用toString()却抛出了空指针异常。所以尽量使用对象的静态方法。 </p>
+<h4 id="null判断"><a href="#null判断" class="headerlink" title="null判断"></a>null判断</h4><p>你可以使用&#x3D;或者&#x3D;操作来比较null值，但是不能使用其他算法或者逻辑操作，例如小于或者 大于。跟SQL不一样，在Java中null&#x3D;&#x3D;null将返回true,如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span>&#123;<br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String str1;<br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String str2;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>System.out.println(<span class="hljs-string">&quot;str1 == str2 ? &quot;</span> + str1 ==str2);<br>System.out.println(<span class="hljs-literal">null</span> == <span class="hljs-literal">null</span>);<br>&#125;<br>&#125;<br><br>[Finished in 567ms]<br><span class="hljs-literal">false</span><br><span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%83%A4/">每日一烤</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%83%A4/">每日一烤</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/07/08/Java%E5%85%B3%E9%94%AE%E5%AD%97(%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6)/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">每日一烤:Java关键字(访问修饰符)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/06/Java-%E7%9A%84%E4%B8%80%E7%82%B9%E7%9F%A5%E8%AF%86%E7%82%B9/">
+                        <span class="hidden-mobile">每日一烤:Java 的一点知识点?</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
