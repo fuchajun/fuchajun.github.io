@@ -16,19 +16,40 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="website">
-<meta property="og:title" content="分类 - 每日一烤">
-<meta property="og:url" content="http://example.com/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%83%A4/page/3/index.html">
+    <meta name="description" content="简述JAVA的ListList是一个有序队列，在JAVA中有两种实现方式:  ArrayList 使用数组实现，是容量可变的非线程安全列表，随机访问快，集合扩容时会创建更大的数组， 把原有数组复制到新数组。  LinkedList 本质是双向链表，与 ArrayList 相比插入和删除速度更快，但随机访问元素很慢。 Java中线程安全的基本数据结构有哪些HashTable: 哈希表的线程安全版，效">
+<meta property="og:type" content="article">
+<meta property="og:title" content="每日一烤:简述JAVA的List">
+<meta property="og:url" content="http://example.com/2022/07/29/%E7%AE%80%E8%BF%B0JAVA%E7%9A%84List/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="简述JAVA的ListList是一个有序队列，在JAVA中有两种实现方式:  ArrayList 使用数组实现，是容量可变的非线程安全列表，随机访问快，集合扩容时会创建更大的数组， 把原有数组复制到新数组。  LinkedList 本质是双向链表，与 ArrayList 相比插入和删除速度更快，但随机访问元素很慢。 Java中线程安全的基本数据结构有哪些HashTable: 哈希表的线程安全版，效">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-29T13:08:08.000Z">
+<meta property="article:modified_time" content="2022-07-29T13:12:30.024Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="每日一烤">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>分类 - 每日一烤 - Hexo</title>
+  <title>每日一烤:简述JAVA的List - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -55,7 +76,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -156,9 +177,43 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="分类 - 每日一烤">
+            <span class="h2" id="subtitle" title="每日一烤:简述JAVA的List">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-07-29 21:08" pubdate>
+        2022年7月29日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      454 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      4 分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -171,88 +226,107 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 28 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2022</p>
-    
-    <a href="/2022/07/08/Java%E5%85%B3%E9%94%AE%E5%AD%97(%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6)/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:Java关键字(访问修饰符)</span>
-      <time style="float: right;">07-08</time>
-    </a>
-  
-    
-    <a href="/2022/07/07/%E5%85%B3%E4%BA%8Enull%E7%9A%84%E5%87%A0%E7%A7%8D%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:关于null的几种处理方式</span>
-      <time style="float: right;">07-07</time>
-    </a>
-  
-    
-    <a href="/2022/07/06/Java-%E7%9A%84%E4%B8%80%E7%82%B9%E7%9F%A5%E8%AF%86%E7%82%B9/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:Java 的一点知识点?</span>
-      <time style="float: right;">07-06</time>
-    </a>
-  
-    
-    <a href="/2022/07/05/String%E7%9A%84%E4%B8%80%E7%82%B9%E7%9F%A5%E8%AF%86/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:String的一点知识</span>
-      <time style="float: right;">07-05</time>
-    </a>
-  
-    
-    <a href="/2022/07/04/%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E7%B1%BB%E5%8F%98%E9%87%8F/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:成员变量 类变量 成员方法 类方法</span>
-      <time style="float: right;">07-04</time>
-    </a>
-  
-    
-    <a href="/2022/07/03/final%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:final关键字的作⽤是什么？</span>
-      <time style="float: right;">07-03</time>
-    </a>
-  
-    
-    <a href="/2022/07/02/==%E5%92%8Cequals%E6%96%B9%E6%B3%95%E4%B9%8B%E9%97%B4%E7%9A%84%E6%AF%94%E8%BE%83/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:==和equals⽅法之间的区别</span>
-      <time style="float: right;">07-02</time>
-    </a>
-  
-    
-    <a href="/2022/07/01/JDKJREJVM/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:JDK,JRE,JVM三者之间的关系</span>
-      <time style="float: right;">07-01</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">每日一烤:简述JAVA的List</h1>
+            
+            <div class="markdown-body">
+              <h1 id="简述JAVA的List"><a href="#简述JAVA的List" class="headerlink" title="简述JAVA的List"></a>简述JAVA的List</h1><p>List是一个有序队列，在JAVA中有两种实现方式:</p>
+<p> ArrayList 使用数组实现，是容量可变的非线程安全列表，随机访问快，集合扩容时会创建更大的数组， 把原有数组复制到新数组。 </p>
+<p>LinkedList 本质是双向链表，与 ArrayList 相比插入和删除速度更快，但随机访问元素很慢。</p>
+<h1 id="Java中线程安全的基本数据结构有哪些"><a href="#Java中线程安全的基本数据结构有哪些" class="headerlink" title="Java中线程安全的基本数据结构有哪些"></a>Java中线程安全的基本数据结构有哪些</h1><p>HashTable: 哈希表的线程安全版，效率低 </p>
+<p>ConcurrentHashMap：哈希表的线程安全版，效率高，用于替代HashTable </p>
+<p>Vector：线程安全版Arraylist </p>
+<p>Stack：线程安全版栈 BlockingQueue及其子类：线程安全版队列</p>
+<h1 id="为何HashMap线程不安全"><a href="#为何HashMap线程不安全" class="headerlink" title="为何HashMap线程不安全"></a>为何HashMap线程不安全</h1><p>在JDK1.7中，HashMap采用头插法插入元素，因此并发情况下会导致环形链表，产生死循环。 </p>
+<p>虽然JDK1.8采用了尾插法解决了这个问题，但是并发下的put操作也会使前一个key被后一个key覆盖。 由于HashMap有扩容机制存在，也存在A线程进行扩容后，B线程执行get方法出现失误的情况。</p>
 
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%83%A4/page/2/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%83%A4/">1</a><a class="page-number" href="/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%83%A4/page/2/#board">2</a><span class="page-number current">3</span>
-    </span>
-  </nav>
-
-
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%83%A4/">每日一烤</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%83%A4/">每日一烤</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/07/29/%E5%89%91%E6%8C%87%20Offer%2046.%20%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">每日一练:剑指 Offer 46. 把数字翻译成字符串</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/28/%E5%89%91%E6%8C%87Offer%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%97%AE%E9%A2%98/">
+                        <span class="hidden-mobile">剑指 Offer 42. 连续子数组的最大和</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -335,6 +409,19 @@
   
 
 
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
 
 
 
