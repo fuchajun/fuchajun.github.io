@@ -4,6 +4,66 @@
   
   
   <entry>
+    <title>剑指 Offer 22. 链表中倒数第k个节点</title>
+    <link href="/2022/07/30/%E5%89%91%E6%8C%87Offer22%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/"/>
+    <url>/2022/07/30/%E5%89%91%E6%8C%87Offer22%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/</url>
+    
+    <content type="html"><![CDATA[<h1 id="剑指-Offer-22-链表中倒数第k个节点"><a href="#剑指-Offer-22-链表中倒数第k个节点" class="headerlink" title="剑指 Offer 22. 链表中倒数第k个节点"></a><a href="https://leetcode.cn/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/">剑指 Offer 22. 链表中倒数第k个节点</a></h1><p>输入一个链表，输出该链表中倒数第k个节点。为了符合大多数人的习惯，本题从1开始计数，即链表的尾节点是倒数第1个节点。</p><p>例如，一个链表有 6 个节点，从头节点开始，它们的值依次是 1、2、3、4、5、6。这个链表的倒数第 3 个节点是值为 4 的节点。</p><p><strong>示例：</strong></p><figure class="highlight clean"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs clean">给定一个链表: <span class="hljs-number">1</span>-&gt;<span class="hljs-number">2</span>-&gt;<span class="hljs-number">3</span>-&gt;<span class="hljs-number">4</span>-&gt;<span class="hljs-number">5</span>, 和 k = <span class="hljs-number">2.</span><br><br>返回链表 <span class="hljs-number">4</span>-&gt;<span class="hljs-number">5.</span><br></code></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> ListNode <span class="hljs-title function_">getKthFromEnd</span><span class="hljs-params">(ListNode head, <span class="hljs-type">int</span> k)</span> &#123;<br>        <span class="hljs-type">ListNode</span> <span class="hljs-variable">former</span> <span class="hljs-operator">=</span> head, latter = head;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; k; i++)<br>            former = former.next;<br>        <span class="hljs-keyword">while</span>(former != <span class="hljs-literal">null</span>) &#123;<br>            former = former.next;<br>            latter = latter.next;<br>        &#125;<br>        <span class="hljs-keyword">return</span> latter;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p><a href="https://leetcode.cn/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/solution/mian-shi-ti-22-lian-biao-zhong-dao-shu-di-kge-j-11/">参考链接</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java</category>
+      
+      <category>每日一练</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+      <tag>每日一练</tag>
+      
+      <tag>剑指offer</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>每日一烤:ArrayList、Vector和LinkedList有什么共同点与区别</title>
+    <link href="/2022/07/30/ArrayList%E4%B8%8EVector%E5%92%8CLinkedList%E6%9C%89%E4%BB%80%E4%B9%88%E5%85%B1%E5%90%8C%E7%82%B9%E4%B8%8E%E5%8C%BA%E5%88%AB/"/>
+    <url>/2022/07/30/ArrayList%E4%B8%8EVector%E5%92%8CLinkedList%E6%9C%89%E4%BB%80%E4%B9%88%E5%85%B1%E5%90%8C%E7%82%B9%E4%B8%8E%E5%8C%BA%E5%88%AB/</url>
+    
+    <content type="html"><![CDATA[<h1 id="ArrayList、Vector和LinkedList有什么共同点与区别？"><a href="#ArrayList、Vector和LinkedList有什么共同点与区别？" class="headerlink" title="ArrayList、Vector和LinkedList有什么共同点与区别？"></a>ArrayList、Vector和LinkedList有什么共同点与区别？</h1><ol><li>ArrayList、Vector和LinkedList都是可伸缩的数组，即可以动态改变长度的数组。 </li><li>ArrayList和Vector都是基于存储元素的Object[] array来实现的，它们会在内存中开辟一块连续的空 间来存储，支持下标、索引访问。但在涉及插入元素时可能需要移动容器中的元素，插入效率较 低。当存储元素超过容器的初始化容量大小，ArrayList与Vector均会进行扩容。 </li><li>Vector是线程安全的，其大部分方法是直接或间接同步的。ArrayList不是线程安全的，其方法不具 有同步性质。LinkedList也不是线程安全的。</li><li>LinkedList采用双向列表实现，对数据索引需要从头开始遍历，因此随机访问效率较低，但在插入 元素的时候不需要对数据进行移动，插入效率较高。</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>每日一烤</category>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>每日一烤</tag>
+      
+      <tag>Java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>每日一练:剑指 Offer 46. 把数字翻译成字符串</title>
     <link href="/2022/07/29/%E5%89%91%E6%8C%87%20Offer%2046.%20%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     <url>/2022/07/29/%E5%89%91%E6%8C%87%20Offer%2046.%20%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
