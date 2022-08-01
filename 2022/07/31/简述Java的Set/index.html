@@ -16,19 +16,40 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="website">
-<meta property="og:title" content="分类 - Java">
-<meta property="og:url" content="http://example.com/categories/Java/page/2/index.html">
+    <meta name="description" content="简述JAVA的SetSet 即集合，该数据结构不允许元素重复且无序。JAVA对Set有三种实现方式： HashSet 通过 HashMap 实现，HashMap 的 Key 即 HashSet 存储的元素，Value系统自定义一个名为 PRESENT 的 Object 类型常量。判断元素是否相同时，先比较hashCode，相同后再利用equals比较， 查询O(1) LinkedHashSet 继">
+<meta property="og:type" content="article">
+<meta property="og:title" content="每日一烤:简述JAVA的Set">
+<meta property="og:url" content="http://example.com/2022/07/31/%E7%AE%80%E8%BF%B0Java%E7%9A%84Set/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="简述JAVA的SetSet 即集合，该数据结构不允许元素重复且无序。JAVA对Set有三种实现方式： HashSet 通过 HashMap 实现，HashMap 的 Key 即 HashSet 存储的元素，Value系统自定义一个名为 PRESENT 的 Object 类型常量。判断元素是否相同时，先比较hashCode，相同后再利用equals比较， 查询O(1) LinkedHashSet 继">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-30T22:41:02.000Z">
+<meta property="article:modified_time" content="2022-08-01T13:21:58.692Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="每日一烤">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>分类 - Java - Hexo</title>
+  <title>每日一烤:简述JAVA的Set - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -55,7 +76,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -156,9 +177,43 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="分类 - Java">
+            <span class="h2" id="subtitle" title="每日一烤:简述JAVA的Set">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-07-31 06:41" pubdate>
+        2022年7月31日 早上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      433 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      4 分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -171,100 +226,100 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 44 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2022</p>
-    
-    <a href="/2022/07/26/%E5%89%91%E6%8C%87%20Offer%2026.%20%E4%BA%8C%E5%8F%89%E6%A0%91/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一练:剑指 Offer 26. 树的子结构</span>
-      <time style="float: right;">07-26</time>
-    </a>
-  
-    
-    <a href="/2022/07/26/%E5%87%BA%E7%8E%B0%E5%9C%A8Java%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84finally%E4%BB%A3%E7%A0%81%E5%9D%97%E6%98%AF%E5%90%A6%E4%B8%80%E5%AE%9A%E4%BC%9A%E6%89%A7%E8%A1%8C/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">出现在Java程序中的finally代码块是否一定会执行</span>
-      <time style="float: right;">07-26</time>
-    </a>
-  
-    
-    <a href="/2022/07/25/%E5%89%91%E6%8C%87%20Offer%2032%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一练:剑指 Offer 32从上到下打印二叉树</span>
-      <time style="float: right;">07-25</time>
-    </a>
-  
-    
-    <a href="/2022/07/25/%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%A5%E5%8F%8A%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E4%B8%89%E8%80%85%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:构造方法、成员变量初始化以及静态成员变量三者的初始化顺序</span>
-      <time style="float: right;">07-25</time>
-    </a>
-  
-    
-    <a href="/2022/07/24/%E5%89%91%E6%8C%87%20Offer%2050.%20%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E5%AD%97%E7%AC%A6/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">剑指 Offer 50. 第一个只出现一次的字符</span>
-      <time style="float: right;">07-24</time>
-    </a>
-  
-    
-    <a href="/2022/07/23/%E5%89%91%E6%8C%87%20Offer%2011.%20%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">剑指 Offer 11. 旋转数组的最小数字</span>
-      <time style="float: right;">07-23</time>
-    </a>
-  
-    
-    <a href="/2022/07/23/%E5%89%91%E6%8C%87%20Offer%2004.%20%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">剑指 Offer 04. 二维数组中的查找</span>
-      <time style="float: right;">07-23</time>
-    </a>
-  
-    
-    <a href="/2022/07/23/%E6%8E%A5%E5%8F%A3%E4%B8%8E%E6%8A%BD%E8%B1%A1%E7%B1%BB/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:接口与抽象类</span>
-      <time style="float: right;">07-23</time>
-    </a>
-  
-    
-    <a href="/2022/07/22/%E5%89%91%E6%8C%87%20Offer%2003.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一练:剑指 Offer 03. 数组中重复的数字</span>
-      <time style="float: right;">07-22</time>
-    </a>
-  
-    
-    <a href="/2022/07/22/%E7%AE%80%E8%BF%B0Java%E5%BC%82%E5%B8%B8(%E4%BA%8C)/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:简述Java中的异常</span>
-      <time style="float: right;">07-22</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">每日一烤:简述JAVA的Set</h1>
+            
+            <div class="markdown-body">
+              <h1 id="简述JAVA的Set"><a href="#简述JAVA的Set" class="headerlink" title="简述JAVA的Set"></a>简述JAVA的Set</h1><p>Set 即集合，该数据结构不允许元素重复且无序。JAVA对Set有三种实现方式： HashSet 通过 HashMap 实现，HashMap 的 Key 即 HashSet 存储的元素，Value系统自定义一个名为 PRESENT 的 Object 类型常量。判断元素是否相同时，先比较hashCode，相同后再利用equals比较， 查询O(1) LinkedHashSet 继承自 HashSet，通过 LinkedHashMap 实现，使用双向链表维护元素插入顺序。 TreeSet 通过 TreeMap 实现的，底层数据结构是红黑树，添加元素到集合时按照比较规则将其插入合适 的位置，保证插入后的集合仍然有序。查询O(logn)</p>
+<h1 id="简述java的TreeMap"><a href="#简述java的TreeMap" class="headerlink" title="简述java的TreeMap"></a>简述java的TreeMap</h1><p>TreeMap是底层利用红黑树实现的Map结构，底层实现是一棵平衡的排序二叉树，由于红黑树的插入、 删除、遍历时间复杂度都为O(logN)，所以性能上低于哈希表。但是哈希表无法提供键值对的有序输 出，红黑树可以按照键的值的大小有序输出。</p>
 
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/categories/Java/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/categories/Java/">1</a><span class="page-number current">2</span><a class="page-number" href="/categories/Java/page/3/#board">3</a><a class="page-number" href="/categories/Java/page/4/#board">4</a><a class="page-number" href="/categories/Java/page/5/#board">5</a><a class="extend next" rel="next" href="/categories/Java/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
-
-
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%83%A4/">每日一烤</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%83%A4/">每日一烤</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/08/01/%E7%AE%80%E8%BF%B0JAVA%E7%9A%84List%E4%B8%8EHashMap/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">每日一烤:简述JAVA的List与HashMap</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/30/%E5%89%91%E6%8C%87Offer22%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/">
+                        <span class="hidden-mobile">剑指 Offer 22. 链表中倒数第k个节点</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -347,6 +402,19 @@
   
 
 
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
 
 
 

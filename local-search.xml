@@ -4,6 +4,64 @@
   
   
   <entry>
+    <title>每日一烤:简述JAVA的List与HashMap</title>
+    <link href="/2022/08/01/%E7%AE%80%E8%BF%B0JAVA%E7%9A%84List%E4%B8%8EHashMap/"/>
+    <url>/2022/08/01/%E7%AE%80%E8%BF%B0JAVA%E7%9A%84List%E4%B8%8EHashMap/</url>
+    
+    <content type="html"><![CDATA[<h1 id="简述JAVA的Set"><a href="#简述JAVA的Set" class="headerlink" title="简述JAVA的Set"></a>简述JAVA的Set</h1><p>Set 即集合，该数据结构不允许元素重复且无序。JAVA对Set有三种实现方式： HashSet 通过 HashMap 实现，HashMap 的 Key 即 HashSet 存储的元素，Value系统自定义一个名为 PRESENT 的 Object 类型常量。判断元素是否相同时，先比较hashCode，相同后再利用equals比较， 查询O(1) LinkedHashSet 继承自 HashSet，通过 LinkedHashMap 实现，使用双向链表维护元素插入顺序。 TreeSet 通过 TreeMap 实现的，底层数据结构是红黑树，添加元素到集合时按照比较规则将其插入合适 的位置，保证插入后的集合仍然有序。查询O(logn)</p><h1 id="简述java的TreeMap"><a href="#简述java的TreeMap" class="headerlink" title="简述java的TreeMap"></a>简述java的TreeMap</h1><p>TreeMap是底层利用红黑树实现的Map结构，底层实现是一棵平衡的排序二叉树，由于红黑树的插入、 删除、遍历时间复杂度都为O(logN)，所以性能上低于哈希表。但是哈希表无法提供键值对的有序输 出，红黑树可以按照键的值的大小有序输出。</p><h1 id="简述JAVA的List"><a href="#简述JAVA的List" class="headerlink" title="简述JAVA的List"></a>简述JAVA的List</h1><p>List是一个有序队列，在JAVA中有两种实现方式: ArrayList 使用数组实现，是容量可变的非线程安全列表，随机访问快，集合扩容时会创建更大的数组， 把原有数组复制到新数组。 LinkedList 本质是双向链表，与 ArrayList 相比插入和删除速度更快，但随机访问元素很慢。</p><h1 id="简述JAVA的HashMap"><a href="#简述JAVA的HashMap" class="headerlink" title="简述JAVA的HashMap"></a>简述JAVA的HashMap</h1><p>JDK8 之前底层实现是数组 + 链表，JDK8 改为数组 + 链表&#x2F;红黑树。主要成员变量包括存储数据的 table 数组、元素数量 size、加载因子 loadFactor。 HashMap 中数据以键值对的形式存在，键对应的 hash 值用来计算数组下标，如果两个元素 key 的 hash 值一样，就会发生哈希冲突，被放到同一个链表上。 table 数组记录 HashMap 的数据，每个下标对应一条链表，所有哈希冲突的数据都会被存放到同一条链 表，Node&#x2F;Entry 节点包含四个成员变量：key、value、next 指针和 hash 值。在JDK8后链表超过8会转 化为红黑树。 若当前数据&#x2F;总数据容量&gt;负载因子，Hashmap将执行扩容操作。 默认初始化容量为 16，扩容容量必须是 2 的幂次方、最大容量为 1&lt;&lt; 30 、默认加载因子为 0.75。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>每日一烤</category>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>每日一烤</tag>
+      
+      <tag>Java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>每日一烤:简述JAVA的Set</title>
+    <link href="/2022/07/31/%E7%AE%80%E8%BF%B0Java%E7%9A%84Set/"/>
+    <url>/2022/07/31/%E7%AE%80%E8%BF%B0Java%E7%9A%84Set/</url>
+    
+    <content type="html"><![CDATA[<h1 id="简述JAVA的Set"><a href="#简述JAVA的Set" class="headerlink" title="简述JAVA的Set"></a>简述JAVA的Set</h1><p>Set 即集合，该数据结构不允许元素重复且无序。JAVA对Set有三种实现方式： HashSet 通过 HashMap 实现，HashMap 的 Key 即 HashSet 存储的元素，Value系统自定义一个名为 PRESENT 的 Object 类型常量。判断元素是否相同时，先比较hashCode，相同后再利用equals比较， 查询O(1) LinkedHashSet 继承自 HashSet，通过 LinkedHashMap 实现，使用双向链表维护元素插入顺序。 TreeSet 通过 TreeMap 实现的，底层数据结构是红黑树，添加元素到集合时按照比较规则将其插入合适 的位置，保证插入后的集合仍然有序。查询O(logn)</p><h1 id="简述java的TreeMap"><a href="#简述java的TreeMap" class="headerlink" title="简述java的TreeMap"></a>简述java的TreeMap</h1><p>TreeMap是底层利用红黑树实现的Map结构，底层实现是一棵平衡的排序二叉树，由于红黑树的插入、 删除、遍历时间复杂度都为O(logN)，所以性能上低于哈希表。但是哈希表无法提供键值对的有序输 出，红黑树可以按照键的值的大小有序输出。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>每日一烤</category>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>每日一烤</tag>
+      
+      <tag>Java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 22. 链表中倒数第k个节点</title>
     <link href="/2022/07/30/%E5%89%91%E6%8C%87Offer22%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/"/>
     <url>/2022/07/30/%E5%89%91%E6%8C%87Offer22%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/</url>
