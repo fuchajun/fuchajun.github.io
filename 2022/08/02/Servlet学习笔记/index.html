@@ -16,12 +16,12 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Servlet[参考链接C语言编程网Servlet教程](Servlet教程 (biancheng.net))Http协议HTTP 协议（Hypertext Transfer Protocol, 超文本传输协议）,本质上是客户端与服务端的通行规则,这一通信规则规定了客户端发送给服务器的内容格式，也规定了服务器发送给客户端的内容格式。客户端 发送给服务器的格式叫”请求协议”；服务器发送给客户端的格式">
+    <meta name="description" content="Servlet学习笔记[参考链接C语言编程网Servlet教程](Servlet教程 (biancheng.net))Http协议HTTP 协议（Hypertext Transfer Protocol, 超文本传输协议）,本质上是客户端与服务端的通行规则,这一通信规则规定了客户端发送给服务器的内容格式，也规定了服务器发送给客户端的内容格式。客户端 发送给服务器的格式叫”请求协议”；服务器发送给客户">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Servlet学习笔记">
 <meta property="og:url" content="http://example.com/2022/08/02/Servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Servlet[参考链接C语言编程网Servlet教程](Servlet教程 (biancheng.net))Http协议HTTP 协议（Hypertext Transfer Protocol, 超文本传输协议）,本质上是客户端与服务端的通行规则,这一通信规则规定了客户端发送给服务器的内容格式，也规定了服务器发送给客户端的内容格式。客户端 发送给服务器的格式叫”请求协议”；服务器发送给客户端的格式">
+<meta property="og:description" content="Servlet学习笔记[参考链接C语言编程网Servlet教程](Servlet教程 (biancheng.net))Http协议HTTP 协议（Hypertext Transfer Protocol, 超文本传输协议）,本质上是客户端与服务端的通行规则,这一通信规则规定了客户端发送给服务器的内容格式，也规定了服务器发送给客户端的内容格式。客户端 发送给服务器的格式叫”请求协议”；服务器发送给客户">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202208020946238.png">
 <meta property="og:image" content="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202208020946477.png">
@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202208021004647.png">
 <meta property="og:image" content="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202208021004083.jpeg">
 <meta property="article:published_time" content="2022-08-02T01:59:12.000Z">
-<meta property="article:modified_time" content="2022-08-02T02:04:44.854Z">
+<meta property="article:modified_time" content="2022-08-02T02:09:48.693Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Servlet">
 <meta name="twitter:card" content="summary_large_image">
@@ -248,7 +248,7 @@
             <h1 style="display: none">Servlet学习笔记</h1>
             
             <div class="markdown-body">
-              <h1 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h1><h3 id="参考链接C语言编程网Servlet教程-Servlet教程-biancheng-net"><a href="#参考链接C语言编程网Servlet教程-Servlet教程-biancheng-net" class="headerlink" title="[参考链接C语言编程网Servlet教程](Servlet教程 (biancheng.net))"></a>[参考链接C语言编程网Servlet教程](<a target="_blank" rel="noopener" href="http://c.biancheng.net/servlet2/">Servlet教程 (biancheng.net)</a>)</h3><h2 id="Http协议"><a href="#Http协议" class="headerlink" title="Http协议"></a>Http协议</h2><p>HTTP 协议（Hypertext Transfer Protocol, 超文本传输协议）,本质上是客户端与服务端的通行规则,这一通信规则规定了客户端发送给服务器的内容格式，也规定了服务器发送给客户端的内容格式。客户端 发送给服务器的格式叫”请求协议”；服务器发送给客户端的格式叫”响应协议”。</p>
+              <h1 id="Servlet学习笔记"><a href="#Servlet学习笔记" class="headerlink" title="Servlet学习笔记"></a>Servlet学习笔记</h1><h3 id="参考链接C语言编程网Servlet教程-Servlet教程-biancheng-net"><a href="#参考链接C语言编程网Servlet教程-Servlet教程-biancheng-net" class="headerlink" title="[参考链接C语言编程网Servlet教程](Servlet教程 (biancheng.net))"></a>[参考链接C语言编程网Servlet教程](<a target="_blank" rel="noopener" href="http://c.biancheng.net/servlet2/">Servlet教程 (biancheng.net)</a>)</h3><h2 id="Http协议"><a href="#Http协议" class="headerlink" title="Http协议"></a>Http协议</h2><p>HTTP 协议（Hypertext Transfer Protocol, 超文本传输协议）,本质上是客户端与服务端的通行规则,这一通信规则规定了客户端发送给服务器的内容格式，也规定了服务器发送给客户端的内容格式。客户端 发送给服务器的格式叫”请求协议”；服务器发送给客户端的格式叫”响应协议”。</p>
 <p>浏览器查看协议传输的数据内容,可以通过F12实现</p>
 <p><img src="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202208020946238.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="Http格式"><a href="#Http格式" class="headerlink" title="Http格式"></a>Http格式</h3><p>服务器端资源需要通过浏览器进行，此时由浏览器将我们给出的请求解析为满足 HTTP 协议的格式并 发出。我们发出的请求格式需要按照浏览器规定的格式来书写，在浏览器中书写格式如下：<img src="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202208020946477.png" srcset="/img/loading.gif" lazyload alt="http格式"></p>
@@ -503,7 +503,7 @@
 <td align="left">服务器不支持”HTTP协议”版本。</td>
 </tr>
 </tbody></table>
-<h2 id="Servlet-1"><a href="#Servlet-1" class="headerlink" title="Servlet"></a>Servlet</h2><p>Servlet 是 Server 与 Applet 的缩写，是服务端小程序的意思。使用 Java 语言编写的服务器端程序， 可以生成动态的 WEB 页，Servlet 主要运行在服务器端，并由服务器调用执行， 是一种按照 Servlet 标 准来开发的类。言外之意：要实现 web 开 发，需要实现 Servlet 标准</p>
+<h2 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h2><p>Servlet 是 Server 与 Applet 的缩写，是服务端小程序的意思。使用 Java 语言编写的服务器端程序， 可以生成动态的 WEB 页，Servlet 主要运行在服务器端，并由服务器调用执行， 是一种按照 Servlet 标 准来开发的类。言外之意：要实现 web 开 发，需要实现 Servlet 标准</p>
 <p>Servlet 本质上也是 Java 类，但要遵循 Servlet 规范进行编写，没有 main()方法，它的创建、使用、 销毁都由 Servlet 容器进行管理(如 Tomcat)。言外之意：写自己的类，不用写 main 方法，别人自动 调用</p>
 <p> Servlet 是和 HTTP 协议是紧密联系的，其可以处理 HTTP 协议相关的所有内容。这也是 Servlet 应用 广泛的原因之一。 提供了 Servlet 功能的服务器，叫做 Servlet 容器，其常见容器有很多，如 Tomcat, Jetty, WebLogic Server, WebSphere, JBoss 等等。</p>
 <p> <strong>Servlet是JavaWeb的三大组件之一，它属于动态资源。Servlet的作用是处理请求，服务器会把接受到的请求交给Servlet来处理，在Servlet中通常需要：</strong></p>
