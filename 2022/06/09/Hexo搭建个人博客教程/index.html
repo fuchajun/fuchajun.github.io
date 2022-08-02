@@ -23,15 +23,15 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Hexo搭建个人博客教程Hexo简介Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以方便的生成静态网页托管在GitHub和Coding上，是搭建博客的首选框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。这是Hexo官网,有关Hexo配置的具体说明可以从上面得到答案.Hexo搭建准备工作预备安装程序: Node.js">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/fuchajun/Picture/image-20220409180929213.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/fuchajun/Picture/image-20220409181248830.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/fuchajun/Picture/image-20220409191119206.png">
+<meta property="og:image" content="https://gcore.jsdelivr.net/gh/fuchajun/Picture/image-20220409180929213.png">
+<meta property="og:image" content="https://gcore.jsdelivr.net/gh/fuchajun/Picture/image-20220409181248830.png">
+<meta property="og:image" content="https://gcore.jsdelivr.net/gh/fuchajun/Picture/image-20220409191119206.png">
 <meta property="article:published_time" content="2022-06-09T14:05:51.000Z">
-<meta property="article:modified_time" content="2022-07-06T14:51:40.923Z">
+<meta property="article:modified_time" content="2022-08-02T00:01:58.206Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/fuchajun/Picture/image-20220409180929213.png">
+<meta name="twitter:image" content="https://gcore.jsdelivr.net/gh/fuchajun/Picture/image-20220409180929213.png">
   
   
   <title>Hexo搭建个人博客教程 - Hexo</title>
@@ -256,11 +256,11 @@
 
 <h6 id="一路回车-Enter-电脑C-x2F-用户名-x2F-ssh中生成密钥"><a href="#一路回车-Enter-电脑C-x2F-用户名-x2F-ssh中生成密钥" class="headerlink" title="一路回车(Enter),电脑C&#x2F;用户名&#x2F;.ssh中生成密钥"></a>一路回车(Enter),电脑C&#x2F;用户名&#x2F;.ssh中生成密钥</h6><p>id_rsa(私钥)</p>
 <p>id_rsa.pub(公钥)</p>
-<h6 id="打开id-rsa-pub文件-复制到Github-gt-gt-Setting-gt-gt-SSH-and-GPG-keys-gt-gt-New-SSH-key-gt-gt-key-gt-gt-title-随意"><a href="#打开id-rsa-pub文件-复制到Github-gt-gt-Setting-gt-gt-SSH-and-GPG-keys-gt-gt-New-SSH-key-gt-gt-key-gt-gt-title-随意" class="headerlink" title="打开id_rsa.pub文件,复制到Github&gt;&gt;Setting&gt;&gt;SSH and GPG keys&gt;&gt;New SSH key&gt;&gt;key&gt;&gt;title 随意"></a>打开id_rsa.pub文件,复制到Github&gt;&gt;Setting&gt;&gt;SSH and GPG keys&gt;&gt;New SSH key&gt;&gt;key&gt;&gt;title 随意</h6><p><img src="https://cdn.jsdelivr.net/gh/fuchajun/Picture/image-20220409180929213.png" srcset="/img/loading.gif" lazyload alt="Github&gt;&gt;Setting&gt;&gt;SSH and GPG keys&gt;&gt;New SSH key"></p>
+<h6 id="打开id-rsa-pub文件-复制到Github-gt-gt-Setting-gt-gt-SSH-and-GPG-keys-gt-gt-New-SSH-key-gt-gt-key-gt-gt-title-随意"><a href="#打开id-rsa-pub文件-复制到Github-gt-gt-Setting-gt-gt-SSH-and-GPG-keys-gt-gt-New-SSH-key-gt-gt-key-gt-gt-title-随意" class="headerlink" title="打开id_rsa.pub文件,复制到Github&gt;&gt;Setting&gt;&gt;SSH and GPG keys&gt;&gt;New SSH key&gt;&gt;key&gt;&gt;title 随意"></a>打开id_rsa.pub文件,复制到Github&gt;&gt;Setting&gt;&gt;SSH and GPG keys&gt;&gt;New SSH key&gt;&gt;key&gt;&gt;title 随意</h6><p><img src="https://gcore.jsdelivr.net/gh/fuchajun/Picture/image-20220409180929213.png" srcset="/img/loading.gif" lazyload alt="Github&gt;&gt;Setting&gt;&gt;SSH and GPG keys&gt;&gt;New SSH key"></p>
 <h6 id="验证SSH"><a href="#验证SSH" class="headerlink" title="验证SSH"></a>验证SSH</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ssh -T git@github.com<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/fuchajun/Picture/image-20220409181248830.png" srcset="/img/loading.gif" lazyload alt="验证ssh"></p>
-<h6 id="but-Github-does-not-provide-shell-access-不是什么重要信息-前半句即可证明验证成功"><a href="#but-Github-does-not-provide-shell-access-不是什么重要信息-前半句即可证明验证成功" class="headerlink" title="but Github does not provide shell access 不是什么重要信息,前半句即可证明验证成功"></a>but Github does not provide shell access 不是什么重要信息,前半句即可证明验证成功</h6><h6 id="如下图-配置Hexo-config-yml文件-将Hexo部署至Github-config-yml所指的是Hexo下的配置文件-注意不要与theme的配置文件相混淆"><a href="#如下图-配置Hexo-config-yml文件-将Hexo部署至Github-config-yml所指的是Hexo下的配置文件-注意不要与theme的配置文件相混淆" class="headerlink" title="如下图 配置Hexo _config.yml文件,将Hexo部署至Github,-config.yml所指的是Hexo下的配置文件,注意不要与theme的配置文件相混淆."></a>如下图 配置Hexo _config.yml文件,将Hexo部署至Github,-config.yml所指的是Hexo下的配置文件,注意不要与theme的配置文件相混淆.</h6><p><img src="https://cdn.jsdelivr.net/gh/fuchajun/Picture/image-20220409191119206.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://gcore.jsdelivr.net/gh/fuchajun/Picture/image-20220409181248830.png" srcset="/img/loading.gif" lazyload alt="验证ssh"></p>
+<h6 id="but-Github-does-not-provide-shell-access-不是什么重要信息-前半句即可证明验证成功"><a href="#but-Github-does-not-provide-shell-access-不是什么重要信息-前半句即可证明验证成功" class="headerlink" title="but Github does not provide shell access 不是什么重要信息,前半句即可证明验证成功"></a>but Github does not provide shell access 不是什么重要信息,前半句即可证明验证成功</h6><h6 id="如下图-配置Hexo-config-yml文件-将Hexo部署至Github-config-yml所指的是Hexo下的配置文件-注意不要与theme的配置文件相混淆"><a href="#如下图-配置Hexo-config-yml文件-将Hexo部署至Github-config-yml所指的是Hexo下的配置文件-注意不要与theme的配置文件相混淆" class="headerlink" title="如下图 配置Hexo _config.yml文件,将Hexo部署至Github,-config.yml所指的是Hexo下的配置文件,注意不要与theme的配置文件相混淆."></a>如下图 配置Hexo _config.yml文件,将Hexo部署至Github,-config.yml所指的是Hexo下的配置文件,注意不要与theme的配置文件相混淆.</h6><p><img src="https://gcore.jsdelivr.net/gh/fuchajun/Picture/image-20220409191119206.png" srcset="/img/loading.gif" lazyload></p>
 <h6 id="同理-也可以将Hexo部署到Gittee或者Coding上-类似于国内的Github-一个是阿里的一个是腾讯的-国内访问速度会快一些"><a href="#同理-也可以将Hexo部署到Gittee或者Coding上-类似于国内的Github-一个是阿里的一个是腾讯的-国内访问速度会快一些" class="headerlink" title="同理,也可以将Hexo部署到Gittee或者Coding上(类似于国内的Github,一个是阿里的一个是腾讯的,国内访问速度会快一些)"></a>同理,也可以将Hexo部署到Gittee或者Coding上(类似于国内的Github,一个是阿里的一个是腾讯的,国内访问速度会快一些)</h6><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">deploy:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">git</span> <br>  <span class="hljs-attr">repository:</span> <br>    <span class="hljs-attr">github:</span> <span class="hljs-string">git@github.com:fuchajun/fuchajun.github.io.git</span><br>    <span class="hljs-attr">coding:</span> <span class="hljs-string">git@e.coding.net:fuchajun/fuchajun/fuchajun.git</span><br>    <span class="hljs-string">//gittee:git@...........</span><br>  <span class="hljs-attr">branch:</span> <span class="hljs-string">master</span><br></code></pre></td></tr></table></figure>
 
 <h6 id="安装deploy-git"><a href="#安装deploy-git" class="headerlink" title="安装deploy-git"></a>安装deploy-git</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install hexo-deployer-git --save<br></code></pre></td></tr></table></figure>
