@@ -362,7 +362,7 @@ img[lazyload] {
   --color-mode: 'light';
   --body-bg-color: #eee;
   --board-bg-color: #ffffff80;
-  --text-color: 98caa3;
+  --text-color: #98caa3;
   --sec-text-color: #718096;
   --post-text-color: #000000;
   --post-heading-color: #1a202c;
@@ -1719,11 +1719,11 @@ post-custom {
   border-left: 0.35rem solid;
   border-radius: 0.25rem;
   margin: 1.5rem 0;
-  color: 98caa3;
+  color: #98caa3;
   font-size: 0.9rem;
 }
 .note a {
-  color: 98caa3;
+  color: #98caa3;
 }
 .note *:last-child {
   margin-bottom: 0;
@@ -1763,7 +1763,7 @@ note-default {
   font-size: 85%;
   margin: 0;
   padding: 0.2em 0.4em;
-  color: 98caa3;
+  color: #98caa3;
 }
 .label-default {
   background: #f7f7f7;
