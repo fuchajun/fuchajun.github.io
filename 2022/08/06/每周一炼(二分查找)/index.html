@@ -1,0 +1,556 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="每周一炼:二分法起参考文章:代码随想录 (programmercarl.com)一个非常不错的网站,强烈推荐 二分查找是入门算法是最先接触,也是最为基础的算法,即使是这样,曾经的我看到二分查询一看就会一些就废,如果你也曾和我一样有过这种经历,或许可以再来复习一下二分查找. 首先我们要明确的是什么情况下我们应该使用二分查找算法,而什么情况下可以排除使用二分查找算法.,二分查找算法的的应用前提. 应用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="每周一炼:二分查找区间确定">
+<meta property="og:url" content="http://example.com/2022/08/06/%E6%AF%8F%E5%91%A8%E4%B8%80%E7%82%BC(%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE)/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="每周一炼:二分法起参考文章:代码随想录 (programmercarl.com)一个非常不错的网站,强烈推荐 二分查找是入门算法是最先接触,也是最为基础的算法,即使是这样,曾经的我看到二分查询一看就会一些就废,如果你也曾和我一样有过这种经历,或许可以再来复习一下二分查找. 首先我们要明确的是什么情况下我们应该使用二分查找算法,而什么情况下可以排除使用二分查找算法.,二分查找算法的的应用前提. 应用">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-06T06:41:02.000Z">
+<meta property="article:modified_time" content="2022-08-06T08:40:43.249Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="二分查找">
+<meta property="article:tag" content="Leetcode">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>每周一炼:二分查找区间确定 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/macpanel.css">
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>浮槎菌の小栈</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="每周一炼:二分查找区间确定">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-08-06 14:41" pubdate>
+        2022年8月6日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.9k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      42 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">每周一炼:二分查找区间确定</h1>
+            
+            <div class="markdown-body">
+              <h1 id="每周一炼-二分法"><a href="#每周一炼-二分法" class="headerlink" title="每周一炼:二分法"></a>每周一炼:二分法</h1><h2 id="起"><a href="#起" class="headerlink" title="起"></a>起</h2><p><a target="_blank" rel="noopener" href="https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html#_704-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE">参考文章:代码随想录 (programmercarl.com)一个非常不错的网站,强烈推荐</a></p>
+<p>二分查找是入门算法是最先接触,也是最为基础的算法,即使是这样,曾经的我看到二分查询一看就会一些就废,如果你也曾和我一样有过这种经历,或许可以再来复习一下二分查找.</p>
+<p>首先我们要明确的是什么情况下我们应该使用二分查找算法,而什么情况下可以排除使用二分查找算法.,二分查找算法的的应用前提.</p>
+<h3 id="应用前提条件如下"><a href="#应用前提条件如下" class="headerlink" title="应用前提条件如下:"></a>应用前提条件如下:</h3><p>1.我们一般会在有序数组中查找元素时使用二分法</p>
+<p>2.无重复元素,因为一旦有重复元素，使用二分查找法返回的元素下标可能不是唯一的，这些都是使用二分法的前提条件</p>
+<h3 id="二分法要点"><a href="#二分法要点" class="headerlink" title="二分法要点"></a>二分法要点</h3><p>有的时候,我们会搞不懂一些边缘代码到底是 <code>while(left &lt; right)</code> 还是 <code>while(left &lt;= right)</code>，或者是<code>right = middle</code>呢，还是要<code>right = middle - 1</code></p>
+<p>大家写二分法经常写乱，主要是因为<strong>对区间的定义没有想清楚，区间的定义就是不变量</strong>。要在二分查找的过程中，保持不变量，就是在while寻找中每一次边界的处理都要坚持根据区间的定义来操作，这就是<strong>循环不变量</strong>规则。</p>
+<p>写二分法，区间的定义一般为两种，左闭右闭即[left, right]，或者左闭右开即[left, right)。</p>
+<p>简单来说,我们要坚持自己的区间,如果时左闭右闭即[left, right],那么从头到尾到要是左闭右闭即[left, right],而且不可以生成违法区间</p>
+<p>[1,1]这是合法区间,值可以取1所以[left,right]当right&#x3D;left时也是合法区间,可以使用</p>
+<p>[1,1)这是非法区间,既要大于1又要小于1,非法区间,所以[left,right]当right&#x3D;left时是非法区间,不可以使用</p>
+<h2 id="承"><a href="#承" class="headerlink" title="承"></a>承</h2><p>接下来写几题简单题练习一下</p>
+<h3 id="704-二分查找"><a href="#704-二分查找" class="headerlink" title="704. 二分查找"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/binary-search/">704. 二分查找</a></h3><p>给定一个 n 个元素有序(-&gt;有序想到二分法)的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。</p>
+<p>示例 1:</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">输入: nums = [-1,0,3,5,9,12], target = 9</span><br><span class="hljs-section">输出: 4</span><br><span class="hljs-section">解释: 9 出现在 nums 中并且下标为 4</span><br></code></pre></td></tr></table></figure>
+
+
+<p>示例 2:</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">输入: nums = [-1,0,3,5,9,12], target = 2</span><br><span class="hljs-section">输出: -1</span><br><span class="hljs-section">解释: 2 不存在 nums 中因此返回 -1</span><br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li>你可以假设 nums 中的所有元素是不重复的。&#x2F;&#x2F;不重复-&gt;二分法</li>
+<li>n 将在 [1, 10000]之间。</li>
+<li>nums 的每个元素都将在 [-9999, 9999]之间。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">search</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> target)</span> &#123;<br>        <br>        <span class="hljs-type">int</span> <span class="hljs-variable">right</span> <span class="hljs-operator">=</span> nums.length-<span class="hljs-number">1</span>;<br>    <br>        <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">middle</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(left &lt;= right)&#123;  <br>            middle = (right+left)/<span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">if</span>(nums[middle] &gt; target) right = middle-<span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[middle]&lt; target) left = middle+<span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> middle;<br>        &#125;<br>        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="35-搜索插入位置"><a href="#35-搜索插入位置" class="headerlink" title="35. 搜索插入位置"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/search-insert-position/">35. 搜索插入位置</a></h3><p>给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。</p>
+<p>请必须使用时间复杂度为 O(log n) 的算法。</p>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">示例 1</span><span class="hljs-punctuation">:</span><br><span class="hljs-punctuation"></span><br><span class="hljs-attribute">输入</span><span class="hljs-punctuation">:</span> <span class="hljs-string">nums = [1,3,5,6], target = 5</span><br><span class="hljs-attribute">输出</span><span class="hljs-punctuation">:</span> <span class="hljs-string">2</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">示例 2</span><span class="hljs-punctuation">:</span><br><span class="hljs-punctuation"></span><br><span class="hljs-attribute">输入</span><span class="hljs-punctuation">:</span> <span class="hljs-string">nums = [1,3,5,6], target = 2</span><br><span class="hljs-attribute">输出</span><span class="hljs-punctuation">:</span> <span class="hljs-string">1</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">示例 3</span><span class="hljs-punctuation">:</span><br><span class="hljs-punctuation"></span><br><span class="hljs-attribute">输入</span><span class="hljs-punctuation">:</span> <span class="hljs-string">nums = [1,3,5,6], target = 7</span><br><span class="hljs-attribute">输出</span><span class="hljs-punctuation">:</span> <span class="hljs-string">4</span><br></code></pre></td></tr></table></figure>
+
+
+<p>提示:</p>
+<ul>
+<li>nums 为 无重复元素 的 升序 排列数组</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">searchInsert</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> target)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>,right = nums.length-<span class="hljs-number">1</span>,middle = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(left &lt;= right)&#123;<br>            middle = (left+right)/<span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">if</span>(nums[middle] &gt; target) right = middle-<span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(nums[middle] &lt; target) left = middle+<span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> middle;<br>        &#125;<br>        <span class="hljs-keyword">return</span> left;<span class="hljs-comment">//此时right=left-1,left反而大一</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这一题和上一题区别就在于如果没搜索到要返回插入位置</p>
+<h3 id="34-在排序数组中查找元素的第一个和最后一个位置"><a href="#34-在排序数组中查找元素的第一个和最后一个位置" class="headerlink" title="34. 在排序数组中查找元素的第一个和最后一个位置"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/">34. 在排序数组中查找元素的第一个和最后一个位置</a></h3><p>给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。</p>
+<p>如果数组中不存在目标值 target，返回 [-1, -1]。</p>
+<p>你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题。</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs inform7">示例 1：<br><br>输入：nums = <span class="hljs-comment">[5,7,7,8,8,10]</span>, target = 8<br>输出：<span class="hljs-comment">[3,4]</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs inform7">示例 2：<br><br>输入：nums = <span class="hljs-comment">[5,7,7,8,8,10]</span>, target = 6<br>输出：<span class="hljs-comment">[-1,-1]</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs inform7">示例 3：<br><br>输入：nums = <span class="hljs-comment">[]</span>, target = 0<br>输出：<span class="hljs-comment">[-1,-1]</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span>[] searchRange(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> target) &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">flag</span> <span class="hljs-operator">=</span> -<span class="hljs-number">1</span>,middle=-<span class="hljs-number">1</span>;<br>        <span class="hljs-type">int</span> [] res =&#123;flag,middle&#125;;<br>        <span class="hljs-keyword">if</span>(nums.length == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> res;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>,right = nums.length-<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span>(left &lt;= right)&#123;<br>            middle = (left+right)/<span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">if</span>(nums[middle] &gt; target) right = middle-<span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(nums[middle] &lt; target) left = middle+<span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> &#123;<br>                flag = middle;<br>                <span class="hljs-keyword">while</span>(middle-<span class="hljs-number">1</span> &gt;=<span class="hljs-number">0</span>&amp;&amp;nums[middle-<span class="hljs-number">1</span>]==nums[middle])<br>                middle--;<br><br>                <span class="hljs-keyword">while</span>(flag+<span class="hljs-number">1</span>&lt;=nums.length-<span class="hljs-number">1</span>&amp;&amp;nums[flag+<span class="hljs-number">1</span>]==nums[flag])<br>                flag++;<br>                res[<span class="hljs-number">0</span>] = middle;<br>                res[<span class="hljs-number">1</span>] = flag;<br>            <span class="hljs-keyword">return</span> res;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="69-x-的平方根"><a href="#69-x-的平方根" class="headerlink" title="69. x 的平方根 "></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/sqrtx/">69. x 的平方根 </a></h3><p>给你一个非负整数 x ，计算并返回 x 的 算术平方根 。</p>
+<p>由于返回类型是整数，结果只保留 整数部分 ，小数部分将被 舍去 。</p>
+<p>注意：不允许使用任何内置指数函数和算符，例如 pow(x, 0.5) 或者 x ** 0.5 。</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs abnf">示例 <span class="hljs-number">1</span>：<br><br>输入：x <span class="hljs-operator">=</span> <span class="hljs-number">4</span><br>输出：<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dns">示例 <span class="hljs-number">2</span>：<br><br>输入：x = <span class="hljs-number">8</span><br>输出：<span class="hljs-number">2</span><br>解释：<span class="hljs-number">8</span> 的算术平方根是 <span class="hljs-number">2.82842</span>..., 由于返回类型是整数，小数部分将被舍去。<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">mySqrt</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> &#123;<br>     <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span><span class="hljs-number">1</span>,right = x/<span class="hljs-number">2</span>+<span class="hljs-number">1</span>,middle=<span class="hljs-number">0</span>;<br><br>     <span class="hljs-keyword">while</span>(left&lt;=right)&#123;<br>         middle = (left+right)/<span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">if</span>((<span class="hljs-type">long</span>)middle*middle&lt;x)  left = middle+<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>((<span class="hljs-type">long</span>)middle*middle&gt;x) right = middle-<span class="hljs-number">1</span>; <br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> middle;<br>     &#125; <br>     <span class="hljs-keyword">return</span> right;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>贴一个别人的解法,原理一样,细节处处理的比我好很多</p>
+<p>二分查找，用x&#x2F;m&lt;m而不是m*m&gt;x防止溢出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> <span class="hljs-title function_">mySqrt</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> <br>    &#123;<br>        <span class="hljs-keyword">if</span>(x == <span class="hljs-number">1</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<span class="hljs-comment">//先考虑base情况</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">min</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">max</span> <span class="hljs-operator">=</span> x;<br>        <span class="hljs-keyword">while</span>(max-min&gt;<span class="hljs-number">1</span>)<br>        &#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">m</span> <span class="hljs-operator">=</span> (max - min) / <span class="hljs-number">2</span> + min;<span class="hljs-comment">//防止溢出,先减后加占用空间更少</span><br>            <span class="hljs-keyword">if</span>(x/m&lt;m)<span class="hljs-comment">//防止溢出</span><br>                max = m;<br>            <span class="hljs-keyword">else</span><br>                min = m;<br>        &#125;<br>        <span class="hljs-keyword">return</span> min;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="367-有效的完全平方数"><a href="#367-有效的完全平方数" class="headerlink" title="367. 有效的完全平方数"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/valid-perfect-square/">367. 有效的完全平方数</a></h3><p>给定一个 正整数 num ，编写一个函数，如果 num 是一个完全平方数，则返回 true ，否则返回 false 。</p>
+<p>进阶：不要 使用任何内置的库函数，如  sqrt 。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dart">示例 <span class="hljs-number">1</span>：<br><br>输入：<span class="hljs-built_in">num</span> = <span class="hljs-number">16</span><br>输出：<span class="hljs-keyword">true</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dart">示例 <span class="hljs-number">2</span>：<br><br>输入：<span class="hljs-built_in">num</span> = <span class="hljs-number">14</span><br>输出：<span class="hljs-keyword">false</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= num &lt;= 2^31 - 1</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isPerfectSquare</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> &#123;<br>        <span class="hljs-type">int</span> left=<span class="hljs-number">1</span>,right=num/<span class="hljs-number">2</span>+<span class="hljs-number">1</span>,middle=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(left&lt;=right)&#123;<br>            middle=(left+right)/<span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">if</span>((<span class="hljs-type">long</span>)middle*middle&gt;num) right = middle-<span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>((<span class="hljs-type">long</span>)middle*middle&lt;num) left = middle+<span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="转"><a href="#转" class="headerlink" title="转"></a>转</h2><p>上面我都习惯性采用左闭右闭的区间写法,当然也可以采用左闭右闭开的写法</p>
+<p>不过要注意在这种情况下,一些判断条件的边界值就可能会有所改变</p>
+<p>在这里贴一下第一题(704.二分查找)这类最基本的题型的左闭右开写法</p>
+<h3 id="二分法第二种写法"><a href="#二分法第二种写法" class="headerlink" title="二分法第二种写法"></a>二分法第二种写法</h3><p>如果说定义 target 是在一个在左闭右开的区间里，也就是[left, right) ，那么二分法的边界处理方式则截然不同。</p>
+<p>有如下两点：</p>
+<ul>
+<li>while (left &lt; right)，这里使用 &lt; ,因为left &#x3D;&#x3D; right在区间,此时**[left, right)**是没有意义的</li>
+<li>if (nums[middle] &gt; target) right 更新为 middle，因为当前nums[middle]不等于target，去左区间继续寻找，而寻找区间是左闭右开区间，所以right更新为middle，即：下一个查询区间不会去比较nums[middle]</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-comment">//左闭右开写法</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">search</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> target)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, right = nums.length;<span class="hljs-comment">//小于nums.length等价于小于等于nums.length-1</span><br>        <span class="hljs-keyword">while</span> (left &lt; right) &#123;<span class="hljs-comment">//这里使用 &lt; ,因为left == right在区间,此时**[left, right)**是没有意义的</span><br>            <span class="hljs-type">int</span> <span class="hljs-variable">mid</span> <span class="hljs-operator">=</span> left + ((right - left) &gt;&gt; <span class="hljs-number">1</span>);<br>            <span class="hljs-keyword">if</span> (nums[mid] == target)<br>                <span class="hljs-keyword">return</span> mid;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[mid] &lt; target)<br>                left = mid + <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[mid] &gt; target)<br>                right = mid;<br>        &#125;<br>        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="合"><a href="#合" class="headerlink" title="合"></a>合</h2><p>对于二分法都是<strong>一看就会，一写就废</strong></p>
+<p>其实主要就是对区间的定义没有理解清楚，在循环中没有始终坚持根据查找区间的定义来做边界处理。</p>
+<p>区间的定义就是不变量，那么在循环中坚持根据查找区间的定义来做边界处理，就是循环不变量规则。</p>
+<p>本篇根据两种常见的区间定义，给出了两种二分法的写法，每一个边界为什么这么处理，都根据区间的定义做了详细介绍。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%AF%8F%E5%91%A8%E4%B8%80%E7%82%BC/">每周一炼</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Leetcode/">Leetcode</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">二分查找</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Leetcode/">Leetcode</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/04/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(1)/">
+                        <span class="hidden-mobile">Vue学习笔记(1)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<!--单击显示文字-->
+<script type="text/javascript" src="/js/click_show_text.js"></script>
+
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/fireworks.js"></script>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script>
+  <link defer rel="stylesheet" href="/css/backgroundize.css" />
+  <!-- hexo injector body_end end --></body>
+</html>
