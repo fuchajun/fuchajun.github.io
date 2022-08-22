@@ -16,22 +16,22 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="final、finally和finalize的区别是什么？ final用于声明属性、方法和类，分别表示属性不可变、方法不可覆盖、类不可继承。 finally作为异常处理的一部分，只能在try&#x2F;catch语句中使用，finally附带一个语句块用来表示这个语 句最终一定被执行，经常被用在需要释放资源的情况下。 finalize是Object类的一个方法，在垃圾收集器执行的时候会调用被回收对">
+    <meta name="description" content="时间的女神为什么有些人明明第一次见面，却总感觉似曾相识？故事仍在继续 男人整理衣装,侧身看见妻子倚靠在窗边,忧郁地望着远方,男人再次望向妻子,妻子已消失在眼帘,只留窗帘在风中摇晃 男子跑到窗边探出身子望去,不见妻子的身影,一转身,妻子出现在男人的身后,仍是身穿着那一袭素雅的白衣,不同的是,手里握着一朵花,点缀的恰到好处. “这是我最喜欢的花,一个很棒的人送给我的”妻子说到. “你不在家的时候,一个">
 <meta property="og:type" content="article">
-<meta property="og:title" content="每日一烤:final、finally和finalize的区别是什么？">
-<meta property="og:url" content="http://example.com/2022/07/19/final,finally%E5%92%8Cfinalize%E7%9A%84%E5%8C%BA%E5%88%AB/index.html">
+<meta property="og:title" content="时间的女神(续)">
+<meta property="og:url" content="http://example.com/2022/07/20/%E6%97%B6%E9%97%B4%E7%9A%84%E5%A5%B3%E7%A5%9E(2)/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="final、finally和finalize的区别是什么？ final用于声明属性、方法和类，分别表示属性不可变、方法不可覆盖、类不可继承。 finally作为异常处理的一部分，只能在try&#x2F;catch语句中使用，finally附带一个语句块用来表示这个语 句最终一定被执行，经常被用在需要释放资源的情况下。 finalize是Object类的一个方法，在垃圾收集器执行的时候会调用被回收对">
+<meta property="og:description" content="时间的女神为什么有些人明明第一次见面，却总感觉似曾相识？故事仍在继续 男人整理衣装,侧身看见妻子倚靠在窗边,忧郁地望着远方,男人再次望向妻子,妻子已消失在眼帘,只留窗帘在风中摇晃 男子跑到窗边探出身子望去,不见妻子的身影,一转身,妻子出现在男人的身后,仍是身穿着那一袭素雅的白衣,不同的是,手里握着一朵花,点缀的恰到好处. “这是我最喜欢的花,一个很棒的人送给我的”妻子说到. “你不在家的时候,一个">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-07-19T00:55:02.000Z">
-<meta property="article:modified_time" content="2022-07-19T00:57:17.399Z">
+<meta property="article:published_time" content="2022-07-20T14:27:02.000Z">
+<meta property="article:modified_time" content="2022-08-22T10:11:15.700Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="每日一烤">
-<meta property="article:tag" content="Java">
+<meta property="article:tag" content="随笔">
+<meta property="article:tag" content="观后有感">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>每日一烤:final、finally和finalize的区别是什么？ - Hexo</title>
+  <title>时间的女神(续) - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -182,7 +182,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="每日一烤:final、finally和finalize的区别是什么？">
+            <span class="h2" id="subtitle" title="时间的女神(续)">
               
             </span>
 
@@ -192,8 +192,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-07-19 08:55" pubdate>
-        2022年7月19日 早上
+      <time datetime="2022-07-20 22:27" pubdate>
+        2022年7月20日 晚上
       </time>
     </span>
   
@@ -203,7 +203,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      274 字
+      1.3k 字
     </span>
   
 
@@ -212,7 +212,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3 分钟
+      11 分钟
     </span>
   
 
@@ -241,14 +241,42 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">每日一烤:final、finally和finalize的区别是什么？</h1>
+            <h1 style="display: none">时间的女神(续)</h1>
             
             <div class="markdown-body">
-              <h1 id="final、finally和finalize的区别是什么？"><a href="#final、finally和finalize的区别是什么？" class="headerlink" title="final、finally和finalize的区别是什么？"></a>final、finally和finalize的区别是什么？</h1><ol>
-<li><h4 id="final用于声明属性、方法和类，分别表示属性不可变、方法不可覆盖、类不可继承。"><a href="#final用于声明属性、方法和类，分别表示属性不可变、方法不可覆盖、类不可继承。" class="headerlink" title="final用于声明属性、方法和类，分别表示属性不可变、方法不可覆盖、类不可继承。"></a>final用于声明属性、方法和类，分别表示属性不可变、方法不可覆盖、类不可继承。</h4></li>
-<li><h4 id="finally作为异常处理的一部分，只能在try-x2F-catch语句中使用，finally附带一个语句块用来表示这个语-句最终一定被执行，经常被用在需要释放资源的情况下。"><a href="#finally作为异常处理的一部分，只能在try-x2F-catch语句中使用，finally附带一个语句块用来表示这个语-句最终一定被执行，经常被用在需要释放资源的情况下。" class="headerlink" title="finally作为异常处理的一部分，只能在try&#x2F;catch语句中使用，finally附带一个语句块用来表示这个语 句最终一定被执行，经常被用在需要释放资源的情况下。"></a>finally作为异常处理的一部分，只能在try&#x2F;catch语句中使用，finally附带一个语句块用来表示这个语 句最终一定被执行，经常被用在需要释放资源的情况下。</h4></li>
-<li><h4 id="finalize是Object类的一个方法，在垃圾收集器执行的时候会调用被回收对象的finalize-方法。当垃-圾回收器准备好释放对象占用空间时，首先会调用finalize-方法，并在下一次垃圾回收动作发生时-真正回收对象占用的内存。"><a href="#finalize是Object类的一个方法，在垃圾收集器执行的时候会调用被回收对象的finalize-方法。当垃-圾回收器准备好释放对象占用空间时，首先会调用finalize-方法，并在下一次垃圾回收动作发生时-真正回收对象占用的内存。" class="headerlink" title="finalize是Object类的一个方法，在垃圾收集器执行的时候会调用被回收对象的finalize()方法。当垃 圾回收器准备好释放对象占用空间时，首先会调用finalize()方法，并在下一次垃圾回收动作发生时 真正回收对象占用的内存。"></a>finalize是Object类的一个方法，在垃圾收集器执行的时候会调用被回收对象的finalize()方法。当垃 圾回收器准备好释放对象占用空间时，首先会调用finalize()方法，并在下一次垃圾回收动作发生时 真正回收对象占用的内存。</h4></li>
-</ol>
+              <h1 id="时间的女神"><a href="#时间的女神" class="headerlink" title="时间的女神"></a>时间的女神</h1><h2 id="为什么有些人明明第一次见面，却总感觉似曾相识？"><a href="#为什么有些人明明第一次见面，却总感觉似曾相识？" class="headerlink" title="为什么有些人明明第一次见面，却总感觉似曾相识？"></a>为什么有些人明明第一次见面，却总感觉似曾相识？</h2><p>故事仍在继续</p>
+<p>男人整理衣装,侧身看见妻子倚靠在窗边,忧郁地望着远方,男人再次望向妻子,妻子已消失在眼帘,只留窗帘在风中摇晃</p>
+<p>男子跑到窗边探出身子望去,不见妻子的身影,一转身,妻子出现在男人的身后,仍是身穿着那一袭素雅的白衣,不同的是,手里握着一朵花,点缀的恰到好处.</p>
+<p>“这是我最喜欢的花,一个很棒的人送给我的”妻子说到.</p>
+<p>“你不在家的时候,一个人会感到难过,这个手指就是我,中指便是你,两根手指轻靠在一起,这样我会有一种被你拥抱着的感觉”</p>
+<p>“我永远不会离开你”男人抱紧妻子,安慰道.</p>
+<p>两个人即使再怎么相爱,也不意味着永远能够不分离,即使有一个幸福的家庭,有一个可爱的女孩.</p>
+<p>妻子生病重病,躺在了病床上.</p>
+<p>在妻子的弥留之际,男人回想往事,向妻子袒露出自己的秘密.</p>
+<p>“我想我以前见过一个和你长得一模一样的一个女人,一次是孩时在学校附近,另一次是大学,她和你穿着一样的白色衣服,肩膀上垂着长发”</p>
+<p>“无论是哪一次,那都是我啊”即使生病了,妻子仍是那样恬静的看着丈夫,笑着说到.</p>
+<p>男人似乎有点震惊,但片刻便又平静,他知道,这或许是妻子的美丽玩笑吧,但他还是配合着妻子的游戏,假装不解的问到</p>
+<p>“那你就不会老吗?”</p>
+<p>妻子深情地对男人说:”当然会变老呀,不过我可以自由的在时空中穿梭,过去和未来都可以去,我可是在你小时候就一直看着你呢.”</p>
+<p>“那你看过我们的未来吗”男人像和幼稚地孩童玩过家家一样,配合着妻子,假装好奇的问到,不愿意破坏此刻美好地氛围.</p>
+<p>“有啊”</p>
+<p>“那我们地未来是什么样的呢?”</p>
+<p>“嘘,这是不能说的秘密”妻子将指尖轻置在嘴边说到.</p>
+<p>下一个镜头是离别的场景,男人哭着望向病床上的妻子.</p>
+<p>在弥留之际,妻子又一次将食指与中指靠在了一起,”无论何时,我都陪在你的身边”,这是妻子对男人说的最后一句话.</p>
+<p>妻子离开后的许多年里,男人总是一个人像曾经的妻子一样,呆呆地站在窗边,犹豫地望着远方,每当男人想念妻子时,便会将食指与中指靠在一起.</p>
+<p>“两根手指轻靠在一起,这样我会有一种被你拥抱着的感觉”对男人而言,妻子的话语仿佛就在昨天,久久不能忘怀.</p>
+<p>“那你看过我们的未来吗””有啊”</p>
+<p>或许是因为妻子的离开,男人反而相信妻子开的玩笑.此后的许多年,男人一直盼望着妻子能够在他的时空与穿梭时间妻子再次相遇.</p>
+<p>他悔恨,自己一定是错过了,也许妻子来了他也未曾发现.</p>
+<p>又是一个乞巧节的傍晚,男人接送女儿放学,路过一家花店,男人决定买一束花,打量了一番,男人选中了一株红色菊花.</p>
+<p>刹那间,男人有点恍惚,这一株菊花似曾相识.</p>
+<p>&lt;&lt;我爱你&gt;&gt;的bgm响起,镜头旋转至男人背后,不远处的街道对面,那一袭白衣,那一个白衣女子,远远的看着自己,亲切的微笑着.</p>
+<p>那难以诉说的神情,恬淡的笑,以及一袭白衣,仿佛把时光又拉回到从前.</p>
+<p>“这是我最喜欢的花,一个很棒的人送给我的”</p>
+<p>“你不在家的时候,一个人会感到难过,这个手指就是我,中指便是你,两根手指轻靠在一起,这样我会有一种被你拥抱着的感觉”</p>
+<p>“我永远不会离开你”</p>
+<p>ps:Ayasa绚沙-我爱你,这首bgm响起了的时候真的是泪目了,可以听一听.</p>
 
             </div>
             <hr>
@@ -258,9 +286,9 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%83%A4/">每日一烤</a>
+                      <a class="hover-with-bg" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
                     
-                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                      <a class="hover-with-bg" href="/categories/%E8%A7%82%E5%90%8E%E6%9C%89%E6%84%9F/">观后有感</a>
                     
                   </div>
                 
@@ -268,9 +296,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%83%A4/">每日一烤</a>
+                      <a class="hover-with-bg" href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a>
                     
-                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                      <a class="hover-with-bg" href="/tags/%E8%A7%82%E5%90%8E%E6%9C%89%E6%84%9F/">观后有感</a>
                     
                   </div>
                 
@@ -287,9 +315,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/07/19/%E6%97%B6%E9%97%B4%E7%9A%84%E5%A5%B3%E7%A5%9E/">
+                      <a href="/2022/07/21/%E7%AE%80%E8%BF%B0Java%E5%BC%82%E5%B8%B8%E7%9A%84%E5%88%86%E7%B1%BB/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">时间的女神</span>
+                        <span class="hidden-mobile">每日一烤:简述Java异常的分类</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -297,8 +325,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/07/18/%E7%AE%80%E8%BF%B0%E6%B3%9B%E5%9E%8B%E6%93%A6%E9%99%A4/">
-                        <span class="hidden-mobile">每日一烤:简述泛型擦除</span>
+                      <a href="/2022/07/20/%E6%8E%A5%E5%8F%A3%E5%92%8C%E6%8A%BD%E8%B1%A1%E7%B1%BB%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/">
+                        <span class="hidden-mobile">每日一烤:接口和抽象类有什么区别？</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
