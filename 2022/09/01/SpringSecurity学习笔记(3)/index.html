@@ -1,0 +1,571 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="SpringSecurity学习笔记(3)参考链接 哔哩哔哩Java SSM 教程,推荐b站up主:青空の霞光,笔记很多部分也都是引用他的教程 授权:授权视频中讲解到了三种方式–基于角色,基于权限,使用注解 我是这样理解的: 授权主要有两种方式:  基于角色 基于权限  每种方式又都有两种解决方案,也就是代码写法,分为  配置SecurityConfiguration 配置注解  相对来说,第二种">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringSecurity学习笔记(3)">
+<meta property="og:url" content="http://example.com/2022/09/01/SpringSecurity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(3)/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="SpringSecurity学习笔记(3)参考链接 哔哩哔哩Java SSM 教程,推荐b站up主:青空の霞光,笔记很多部分也都是引用他的教程 授权:授权视频中讲解到了三种方式–基于角色,基于权限,使用注解 我是这样理解的: 授权主要有两种方式:  基于角色 基于权限  每种方式又都有两种解决方案,也就是代码写法,分为  配置SecurityConfiguration 配置注解  相对来说,第二种">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-01T08:03:13.000Z">
+<meta property="article:modified_time" content="2022-09-02T00:34:17.608Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Spring">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>SpringSecurity学习笔记(3) - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/macpanel.css">
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>浮槎菌の小栈</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SpringSecurity学习笔记(3)">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-09-01 16:03" pubdate>
+        2022年9月1日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.6k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      39 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SpringSecurity学习笔记(3)</h1>
+            
+            <div class="markdown-body">
+              <h1 id="SpringSecurity学习笔记-3"><a href="#SpringSecurity学习笔记-3" class="headerlink" title="SpringSecurity学习笔记(3)"></a>SpringSecurity学习笔记(3)</h1><p><strong><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1xL4y1H7Tq?spm_id_from=333.999.0.0">参考链接 哔哩哔哩Java SSM 教程,推荐b站up主:青空の霞光,笔记很多部分也都是引用他的教程</a></strong></p>
+<h2 id="授权"><a href="#授权" class="headerlink" title="授权:"></a>授权:</h2><p>授权视频中讲解到了三种方式–基于角色,基于权限,使用注解</p>
+<p>我是这样理解的:</p>
+<p>授权主要有两种方式:</p>
+<ul>
+<li>基于角色</li>
+<li>基于权限</li>
+</ul>
+<p>每种方式又都有两种解决方案,也就是代码写法,分为</p>
+<ul>
+<li>配置SecurityConfiguration</li>
+<li>配置注解</li>
+</ul>
+<p>相对来说,第二种更为灵活,更为符合”约定大于配置”的Spring思想</p>
+<h3 id="基于角色"><a href="#基于角色" class="headerlink" title="基于角色:"></a>基于角色:</h3><p>根据用户属于哪个角色来决定是否可以访问某个路径</p>
+<p>以常见的聊天软件QQ举例,一般有这群主,管理员,群成员等角色,每种角色的权限也会不同,例如</p>
+<ul>
+<li>群主：<code>/login</code>、<code>/logout</code>、<code>/chat</code>、<code>/edit</code>、<code>/delete</code>、<code>/upgrade</code></li>
+<li>管理员：<code>/login</code>、<code>/logout</code>、<code>/chat</code>、<code>/edit</code></li>
+<li>普通群成员：<code>/login</code>、<code>/logout</code>、<code>/chat</code></li>
+</ul>
+<p>现在我们希望创建两个角色，普通用户和管理员，普通用户只能访问index页面，而管理员可以访问任何页面。</p>
+<ul>
+<li><p>修改数据库表格</p>
+<p>首先我们需要对数据库中的角色表进行一些修改，添加一个用户角色字段，并创建一个新的用户，Test用户的角色为user，而Admin用户的角色为admin。</p>
+</li>
+<li><p>配置SpringSecurity</p>
+<p>也就是在SecurityConfiguration中给角色添加权限.决定哪些角色可以访问哪些页面：</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><pre><code class="hljs java">http<br>        .authorizeRequests()<br>        .antMatchers(<span class="hljs-string">&quot;/static/**&quot;</span>).permitAll()<br>  		.antMatchers(<span class="hljs-string">&quot;/index&quot;</span>).hasAnyRole(<span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;admin&quot;</span>)   <span class="hljs-comment">//index页面可以由user或admin访问</span><br>        .anyRequest().hasRole(<span class="hljs-string">&quot;admin&quot;</span>)   <span class="hljs-comment">//除了上面以外的所有内容，只能是admin访问</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>修改一下验证逻辑</p>
+<p>首先创建一个实体类用于表示数据库中的用户名、密码和角色,为下面getRole做准备：</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AuthUser</span> &#123;<br>    String username;<br>    String password;<br>    String role;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>修改一下Mapper</p>
+<p>使他返回的不只是密码,而是一个实体user,我们可以通过user.getRole获取到角色权限：</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Mapper</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserMapper</span> &#123;<br><br>    <span class="hljs-meta">@Select(&quot;select * from users where username = #&#123;username&#125;&quot;)</span><br>    AuthUser <span class="hljs-title function_">getPasswordByUsername</span><span class="hljs-params">(String username)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>修改Service：</p>
+<p>通过这一步,我们就可以获取整个user的信息,包括角色,密码,用户名,有了角色,就可以通过之前给角色配置的权限进行路径访问权限判断了</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> UserDetails <span class="hljs-title function_">loadUserByUsername</span><span class="hljs-params">(String s)</span> <span class="hljs-keyword">throws</span> UsernameNotFoundException &#123;<br>    <span class="hljs-type">AuthUser</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> mapper.getPasswordByUsername(s);<br>    <span class="hljs-keyword">if</span>(user == <span class="hljs-literal">null</span>)<br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UsernameNotFoundException</span>(<span class="hljs-string">&quot;登录失败，用户名或密码错误！&quot;</span>);<br>    <span class="hljs-keyword">return</span> User<br>            .withUsername(user.getUsername())<br>            .password(user.getPassword())<br>            .roles(user.getRole())<br>            .build();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>尝试登陆</p>
+<p>访问一下<code>/index</code>和<code>/admin</code>两个页面,发现已经配置成功</p>
+</li>
+</ul>
+<h3 id="基于权限"><a href="#基于权限" class="headerlink" title="基于权限:"></a>基于权限:</h3><p>基于权限其实和基于角色类似,就是在代码上有两点不同</p>
+<ul>
+<li><p>给权限而不是给角色</p>
+<p>修改Service</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> UserDetails <span class="hljs-title function_">loadUserByUsername</span><span class="hljs-params">(String s)</span> <span class="hljs-keyword">throws</span> UsernameNotFoundException &#123;<br>    <span class="hljs-type">AuthUser</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> mapper.getPasswordByUsername(s);<br>    <span class="hljs-keyword">if</span>(user == <span class="hljs-literal">null</span>)<br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UsernameNotFoundException</span>(<span class="hljs-string">&quot;登录失败，用户名或密码错误！&quot;</span>);<br>    <span class="hljs-keyword">return</span> User<br>            .withUsername(user.getUsername())<br>            .password(user.getPassword())<br>            .authorities(<span class="hljs-string">&quot;page:index&quot;</span>)<span class="hljs-comment">//给权限而不是给角色</span><br>            .build();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>判断有什么权限而不是判断是什么角色</p>
+<p>基于权限的授权与角色类似，需要以<code>hasAnyAuthority</code>或<code>hasAuthority</code>进行判断：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">.anyRequest().hasAnyAuthority(<span class="hljs-string">&quot;page:index&quot;</span>)<span class="hljs-comment">//判断有什么权限而不是判断是什么角色</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>授权主要就是以上两种方式,但是上面我们都是通过配置文件判断有什么权限的,前面我们提过还有另一种方法,通过<strong>注解配置</strong>,这一种方式<strong>更为灵活</strong>,</p>
+<p>个人认为前一种通过配置文件的方案更为简单,但还是很有必要掌握后一种,毕竟Spring的思想就是约定大于配置.</p>
+<h3 id="使用注解判断权限"><a href="#使用注解判断权限" class="headerlink" title="使用注解判断权限"></a>使用注解判断权限</h3><p>除了直接配置以外，我们还可以以注解形式直接配置，首先需要在配置类（注意这里是在Mvc的配置类上添加，因为这里只针对Controller进行过滤，所有的Controller是由Mvc配置类进行注册的，如果需要为Service或其他Bean也启用权限判断，则需要在Security的配置类上添加）上开启：</p>
+<ul>
+<li><p>在父级配置类开启:</p>
+<p>相比之前的直接配置,我们可以采用注解配置,<strong>父级配置类</strong>指的是在Mvc的配置类上添加，因为这里只针对Controller进行过滤，所有的Controller是由Mvc配置类进行注册的，如果需要为Service或其他Bean也启用权限判断，则需要在Security的配置类上添加</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@EnableGlobalMethodSecurity(prePostEnabled = true)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SecurityConfiguration</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">WebSecurityConfigurerAdapter</span> &#123;<span class="hljs-comment">//这里也要在Mvc配置类上添加上面一行的注释,这一行是为了后面再service用权限判断做的准备</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>在添加权限验证的请求映射上添加注解：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@PreAuthorize(&quot;hasRole(&#x27;user&#x27;)&quot;)</span>   <span class="hljs-comment">//判断是否为user角色，只有此角色才可以访问,或者也可以判断hasAnyAuthority(&quot;page:index&quot;)</span><br><span class="hljs-meta">@RequestMapping(&quot;/index&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">index</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;index&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>通过添加<code>@PreAuthorize</code>注解，在<strong>方法执行之前</strong>判断判断权限，如果没有对应的权限或是对应的角色，将无法访问页面。</p>
+<p>这里其实是使用了SpEL表达式，相当于可以执行一些逻辑再得到结果，而不是直接传值，官方文档地址：<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.2.13.RELEASE/spring-framework-reference/core.html#expressions%EF%BC%8C%E5%86%85%E5%AE%B9%E6%AF%94%E8%BE%83%E5%A4%9A%EF%BC%8C%E4%B8%8D%E6%98%AF%E9%87%8D%E7%82%B9%EF%BC%8C%E8%BF%99%E9%87%8C%E5%B0%B1%E4%B8%8D%E5%86%8D%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D%E4%BA%86%E3%80%82">https://docs.spring.io/spring-framework/docs/5.2.13.RELEASE/spring-framework-reference/core.html#expressions，内容比较多，不是重点，这里就不再详细介绍了。</a></p>
+<p>同样的还有<code>@PostAuthorize</code>注解，但是它是在<strong>方法执行之后</strong>再进行拦截：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@PostAuthorize(&quot;hasRole(&#x27;user&#x27;)&quot;)</span><br><span class="hljs-meta">@RequestMapping(&quot;/index&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">index</span><span class="hljs-params">()</span>&#123;<br>    System.out.println(<span class="hljs-string">&quot;执行了&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;index&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>坑(1),这里有个坑,采用注解配置后,项目运行地址中不会直接跳转到localhost:8080&#x2F;BookManager&#x2F;,而不是之前的localhost:8080&#x2F;BookManager&#x2F;login</p>
+<p>而且以user角色登录后,无法访问<a target="_blank" rel="noopener" href="http://localhost:8080/BookManager/all-product.html,%E6%98%BE%E7%A4%BA404">http://localhost:8080/BookManager/all-product.html,显示404</a></p>
+<p>以admin角色登录后,无法访问<a target="_blank" rel="noopener" href="http://localhost:8080/BookManager/all-product.html,%E6%98%BE%E7%A4%BA404">http://localhost:8080/BookManager/all-product.html,显示404</a></p>
+<p>就像之前我们配置文件时权限认证的代码一般只好写在SecurityConfiguration,属于文件级,而通过注释配置是方法级的,可以直接配置在方法前.</p>
+<p>新建一个SimpleService用于验证下面这句话</p>
+<blockquote>
+<p>除了Controller以外，只要是由Spring管理的Bean都可以使用注解形式来控制权限，只要不具备访问权限，那么就无法执行方法并且会返回403页面。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SimpleService</span> &#123;<br><br>    <span class="hljs-meta">@PreAuthorize(&quot;hasAnyRole(&#x27;user&#x27;)&quot;)</span><span class="hljs-comment">//通过注释配置是方法级的,可以直接配置在方法前,其他类调用这个方法是会判断调用者是否有权限或者属于有权限的角色</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test</span><span class="hljs-params">()</span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;成功执行&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>注意Service是由根容器进行注册<strong>，需要在Security配置类上添加<code>@EnableGlobalMethodSecurity</code>注解才可以生效</strong>。</p>
+<h2 id="简单回顾一下"><a href="#简单回顾一下" class="headerlink" title="简单回顾一下:"></a>简单回顾一下:</h2><ul>
+<li><p>SecurityConfiguration配置角色</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">.antMatchers(<span class="hljs-string">&quot;/static/**&quot;</span>).permitAll()<br>.antMatchers(<span class="hljs-string">&quot;/index&quot;</span>).hasAnyRole(<span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;admin&quot;</span>)   <span class="hljs-comment">//index页面可以由user或admin访问</span><br>.anyRequest().hasRole(<span class="hljs-string">&quot;admin&quot;</span>)   <span class="hljs-comment">//除了上面以外的所有内容，只能是admin访问</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建实体类,注意要包含role</p>
+</li>
+<li><p>修改mapper映射,这一次不只是查询出密码,而是查询出user对象</p>
+</li>
+<li><p>修改service,上一步查询出user对象,这一步通过getRole获取角色</p>
+</li>
+</ul>
+<h3 id="回顾补充"><a href="#回顾补充" class="headerlink" title="回顾补充:"></a>回顾补充:</h3><p>​    暂无</p>
+<h2 id="排坑指南"><a href="#排坑指南" class="headerlink" title="排坑指南:"></a>排坑指南:</h2><p>坑(1) </p>
+<p>暂未解决</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    
+                      <a class="hover-with-bg" href="/categories/SpringSecurity/">SpringSecurity</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Spring/">Spring</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/28/SpringSecurity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(2)/">
+                        <span class="hidden-mobile">SpringSecurity学习笔记(2)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<!--单击显示文字-->
+<script type="text/javascript" src="/js/click_show_text.js"></script>
+
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/fireworks.js"></script>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script>
+  <link defer rel="stylesheet" href="/css/backgroundize.css" />
+  <!-- hexo injector body_end end --></body>
+</html>
