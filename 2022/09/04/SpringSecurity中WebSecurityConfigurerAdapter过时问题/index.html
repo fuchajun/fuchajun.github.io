@@ -1,0 +1,505 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="SpringSecurity - WebSecurityConfigurerAdapter 过时问题参考链接 哔哩哔哩Java SSM 教程,推荐b站up主:青空の霞光,笔记很多部分也都是引用他的教程 最近在看SpringSecurity的教程,在了解到了SpringSecurity的配置文件SecurityConfiguration通常会 extends  WebSecurityConfigur">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringSecurity - WebSecurityConfigurerAdapter 过时问题">
+<meta property="og:url" content="http://example.com/2022/09/04/SpringSecurity%E4%B8%ADWebSecurityConfigurerAdapter%E8%BF%87%E6%97%B6%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="SpringSecurity - WebSecurityConfigurerAdapter 过时问题参考链接 哔哩哔哩Java SSM 教程,推荐b站up主:青空の霞光,笔记很多部分也都是引用他的教程 最近在看SpringSecurity的教程,在了解到了SpringSecurity的配置文件SecurityConfiguration通常会 extends  WebSecurityConfigur">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-04T08:09:13.000Z">
+<meta property="article:modified_time" content="2022-09-05T13:12:00.437Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Spring">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>SpringSecurity - WebSecurityConfigurerAdapter 过时问题 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/macpanel.css">
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>浮槎菌の小栈</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SpringSecurity - WebSecurityConfigurerAdapter 过时问题">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-09-04 16:09" pubdate>
+        2022年9月4日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.6k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      38 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SpringSecurity - WebSecurityConfigurerAdapter 过时问题</h1>
+            
+            <div class="markdown-body">
+              <h1 id="SpringSecurity-WebSecurityConfigurerAdapter-过时问题"><a href="#SpringSecurity-WebSecurityConfigurerAdapter-过时问题" class="headerlink" title="SpringSecurity - WebSecurityConfigurerAdapter 过时问题"></a>SpringSecurity - WebSecurityConfigurerAdapter 过时问题</h1><p><strong><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1xL4y1H7Tq?spm_id_from=333.999.0.0">参考链接 哔哩哔哩Java SSM 教程,推荐b站up主:青空の霞光,笔记很多部分也都是引用他的教程</a></strong></p>
+<p>最近在看SpringSecurity的教程,在了解到了SpringSecurity的配置文件SecurityConfiguration通常会 extends  WebSecurityConfigurerAdapter</p>
+<p>然而最新版本的Springboot(2.7.3)版本集成SpringSecurity时继续采用 extends WebSecurityConfigurerAdapter会发现WebSecurityConfigurerAdapter类以过时(打上了@Deprecate的注解),过时虽然可以继续使用,但还是有必要了解新的解决方案.</p>
+<p>首先,作为萌新,我觉得还是有必要先对WebSecurityConfigurerAdapter在SecurityConfiguration中的应用做一些总结归纳,之后再谈如何替换.</p>
+<p>Spring Security的配置类SecurityConfiguration通常要继承WebSecurityConfigurerAdapter,为的就是重写她的三个configure方法,这三个方法名相同,但形参不同,应用场景也不同,可以说,掌握了这三个方法的使用也就是掌握了Spring Security的配置类SecurityConfiguration<strong>为何要</strong>继承WebSecurityConfigurerAdapter.</p>
+<p>在Spring Security的配置类SecurityConfiguration中继承WebSecurityConfigurerAdapter,并重写三个方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@EnableWebSecurity</span><br><span class="hljs-meta">@EnableGlobalMethodSecurity(prePostEnabled = true)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">WebSecurityConfig</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">WebSecurityConfigurerAdapter</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">configure</span><span class="hljs-params">(AuthenticationManagerBuilder auth)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>     <span class="hljs-comment">//configure(AuthenticationManagerBuilder)用于通过允许AuthenticationProvider容易地添加来建立认证机制。也就是说用来记录账号，密码，角色信息。简言之:身份认证</span><br>    &#125;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">configure</span><span class="hljs-params">(HttpSecurity http)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>     <span class="hljs-comment">//configure(HttpSecurity)允许基于选择匹配在资源级配置基于网络的安全性。以下示例将以/ admin /开头的网址限制为具有ADMIN角色的用户，并声明任何其他网址需要成功验证。也就是对角色的权限——所能访问的路径做出限制.简言之:权限认证</span><br>    &#125;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">configure</span><span class="hljs-params">(WebSecurity web)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-comment">//configure(WebSecurity)用于影响全局安全性(配置资源，设置调试模式，通过实现自定义防火墙定义拒绝请求)的配置设置。一般用于配置全局的某些通用事物，例如静态资源等</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>应用场景:</p>
+<p> public void configure(AuthenticationManagerBuilder auth) throws Exception</p>
+<p>身份认证:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>   <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">configure</span><span class="hljs-params">(AuthenticationManagerBuilder auth)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>       auth<br>               .userDetailsService(service)<span class="hljs-comment">//通过service获取的信息</span><br>               .passwordEncoder(<span class="hljs-keyword">new</span> <span class="hljs-title class_">BCryptPasswordEncoder</span>());<span class="hljs-comment">//来验证密码</span><br>   &#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<p>protected void configure(HttpSecurity http) throws Exception</p>
+<p>权限认证:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>   <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">configure</span><span class="hljs-params">(HttpSecurity http)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>       http<br>               .authorizeRequests()   <span class="hljs-comment">//首先需要配置哪些请求会被拦截，哪些请求必须具有什么角色才能访问</span><br>               .antMatchers(<span class="hljs-string">&quot;/login&quot;</span>).permitAll()<br>               .antMatchers(<span class="hljs-string">&quot;/static/**&quot;</span>).permitAll()    <span class="hljs-comment">//静态资源，使用permitAll来运行任何人访问（注意一定要放在前面）</span><br>               .antMatchers(<span class="hljs-string">&quot;/index&quot;</span>).hasAnyRole(<span class="hljs-string">&quot;user&quot;</span>,<span class="hljs-string">&quot;admin&quot;</span>)<br>               .anyRequest().hasRole(<span class="hljs-string">&quot;admin&quot;</span>)<br>               .and()<br>               .formLogin()       <span class="hljs-comment">//配置Form表单登陆</span><br>               .loginPage(<span class="hljs-string">&quot;/login&quot;</span>)       <span class="hljs-comment">//登陆页面地址（GET）</span><br>               .loginProcessingUrl(<span class="hljs-string">&quot;/doLogin&quot;</span>)    <span class="hljs-comment">//form表单提交地址（POST）</span><br>               .defaultSuccessUrl(<span class="hljs-string">&quot;/index&quot;</span>,<span class="hljs-literal">true</span>)    <span class="hljs-comment">//登陆成功后跳转的页面，也可以通过Handler实现高度自定义</span><br>               .permitAll()   <span class="hljs-comment">//登陆页面也需要允许所有人访问</span><br>               .and()<br>               .csrf().disable();<br>   &#125;<br></code></pre></td></tr></table></figure>
+
+<p>public void configure(WebSecurity web) throws Exception</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">configure</span><span class="hljs-params">(WebSecurity web)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>     web.ignoring().antMatchers(<span class="hljs-string">&quot;/css/**&quot;</span>, <span class="hljs-string">&quot;/js/**&quot;</span>);<span class="hljs-comment">//configure(WebSecurity)用于影响全局安全性(配置资源，设置调试模式如是否debug配置，通过实现自定义防火墙定义拒绝请求如全局HttpFirewall配置)的配置设置。</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>似乎 configure(HttpSecurity http)和configure(WebSecurity web)差不多</p>
+<p>前者主要是配置 Spring Security 中的过滤器链，后者则主要是配置一些路径放行规则。</p>
+<p>现在这挖个坑,有时间会看一下这三个的源码分析.</p>
+<p>介绍完了WebSecurityConfigurerAdapter中要重写的三个方法,我们对这个类的功能有了大致了解,那么我们该如何把过时的它替换呢?<br>我们需要知道SpringSecurity的一些原理,看官方文档:</p>
+<blockquote>
+<p>Spring Security’s Servlet support is based on Servlet <code>Filter</code>s, so it is helpful to look at the role of <code>Filter</code>s generally first. The picture below shows the typical layering of the handlers for a single HTTP request.</p>
+</blockquote>
+<p>Spring Security的Servlet 基于 Servlet Filters</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/site/docs/5.7.3/api/org/springframework/security/web/SecurityFilterChain.html"><code>SecurityFilterChain</code></a> is used by <a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/reference/servlet/architecture.html#servlet-filterchainproxy">FilterChainProxy</a> to determine which Spring Security <code>Filter</code>s should be invoked for this request.</p>
+</blockquote>
+<h3 id="配置HttpSecurity"><a href="#配置HttpSecurity" class="headerlink" title="配置HttpSecurity:"></a>配置HttpSecurity:</h3><h4 id="旧的配置"><a href="#旧的配置" class="headerlink" title="旧的配置:"></a>旧的配置:</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SecurityConfig</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">WebSecurityConfigurerAdapter</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">configure</span><span class="hljs-params">(HttpSecurity http)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        http<br>            .antMatcher(<span class="hljs-string">&quot;/**&quot;</span>)<br>            .authorizeRequests(authorize -&gt; authorize<br>                    .anyRequest().authenticated()<br>            );<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="新的配置：自定义-Filters"><a href="#新的配置：自定义-Filters" class="headerlink" title="新的配置：自定义 Filters"></a>新的配置：自定义 <code>Filters</code></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@EnableWebSecurity</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">WebSecurityConfig</span> &#123;<br><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> SecurityFilterChain <span class="hljs-title function_">securityFilterChain</span><span class="hljs-params">(HttpSecurity httpSecurity)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    httpSecurity.authorizeRequests()<br>            .anyRequest().authenticated()<br>            .and()<br>            .formLogin()<br>            .disable()<br>            .csrf()<br>            .disable();<br>    <span class="hljs-keyword">return</span> httpSecurity.build();<br>&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="配置-WebSecurity"><a href="#配置-WebSecurity" class="headerlink" title="配置 WebSecurity"></a>配置 WebSecurity</h3><p>新版本通过配置 <code>WebSecurityCustomizer</code> Bean 来配置 <code>WebSecurity</code></p>
+<h4 id="旧的配置-1"><a href="#旧的配置-1" class="headerlink" title="旧的配置:"></a>旧的配置:</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@EnableWebSecurity</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">WebSecurityConfig</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">WebSecurityConfigurerAdapter</span> &#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">configure</span><span class="hljs-params">(WebSecurity web)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        web.ignoring().antMatchers(<span class="hljs-string">&quot;/login&quot;</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="新的配置"><a href="#新的配置" class="headerlink" title="新的配置:"></a>新的配置:</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@EnableWebSecurity</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">WebSecurityConfig</span> &#123;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> WebSecurityCustomizer <span class="hljs-title function_">webSecurityCustomizer</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> web -&gt; web.ignoring().antMatchers(<span class="hljs-string">&quot;/login&quot;</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+<p>参考链接:</p>
+<h4 id="Spring-Security的三个configure方法"><a href="#Spring-Security的三个configure方法" class="headerlink" title="Spring Security的三个configure方法"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/woyujiezhen/p/13049979.html">Spring Security的三个configure方法</a></h4><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1972872">重要:Spring Security即将弃用配置类WebSecurityConfigurerAdapter - 腾讯云开发者社区-腾讯云 (tencent.com)</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    
+                      <a class="hover-with-bg" href="/categories/SpringSecurity/">SpringSecurity</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Spring/">Spring</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/02/SpringSecurity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(4)/">
+                        <span class="hidden-mobile">SpringSecurity学习笔记(4)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<!--单击显示文字-->
+<script type="text/javascript" src="/js/click_show_text.js"></script>
+
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/fireworks.js"></script>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script>
+  <link defer rel="stylesheet" href="/css/backgroundize.css" />
+  <!-- hexo injector body_end end --></body>
+</html>
