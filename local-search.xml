@@ -4,6 +4,64 @@
   
   
   <entry>
+    <title>每周一炼:链表(2)</title>
+    <link href="/2022/09/09/%E6%AF%8F%E5%91%A8%E4%B8%80%E7%82%BC(%E9%93%BE%E8%A1%A82)/"/>
+    <url>/2022/09/09/%E6%AF%8F%E5%91%A8%E4%B8%80%E7%82%BC(%E9%93%BE%E8%A1%A82)/</url>
+    
+    <content type="html"><![CDATA[<h1 id="每周一炼-链表-2"><a href="#每周一炼-链表-2" class="headerlink" title="每周一炼:链表(2)"></a>每周一炼:链表(2)</h1><h2 id="起"><a href="#起" class="headerlink" title="起"></a>起</h2><p><a href="https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html#_704-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE">参考文章:代码随想录 (programmercarl.com)一个非常不错的网站,强烈推荐</a></p><p>有一段时间没有写算法了,今天又重拾这个习惯,希望可以坚持下去.</p><p>我的算法基础比较薄弱,就先从最简单最基础的数据结构–链表的开始.</p><h3 id="前瞻"><a href="#前瞻" class="headerlink" title="前瞻:"></a>前瞻:</h3><p>1.链表的反转</p><p>2.采用临时节点tem进行标记可能会丢失的节点</p><p>3.循环移动两个快慢指针</p><p>4.两两交换链表中的节点</p><p>4.本期题目:</p><ul><li><h4 id="206-反转链表"><a href="#206-反转链表" class="headerlink" title="206. 反转链表"></a><a href="https://leetcode.cn/problems/reverse-linked-list/">206. 反转链表</a></h4></li><li><h4 id="24-两两交换链表中的节点"><a href="#24-两两交换链表中的节点" class="headerlink" title="24. 两两交换链表中的节点"></a><a href="https://leetcode.cn/problems/swap-nodes-in-pairs/">24. 两两交换链表中的节点</a></h4></li></ul><h2 id="承"><a href="#承" class="headerlink" title="承"></a>承</h2><p>反转链表</p><p>采用双指针中快慢指针的方法,之前有介绍</p><p>本质上是采用<strong>循环</strong>不断移动pre,cur指针</p><p>要考虑的问题有:</p><p>1.将head.next指向前一个节点,那么原先的head.next会丢失</p><p>所以要用临时tem节点指向head.next</p><p>2.pre,cur的移动顺序</p><p>等待pre节点被cur.next保存,将pre指向cur节点,cur指向下一个节点即之前用tem临时保存的节点</p><h2 id="转"><a href="#转" class="headerlink" title="转"></a>转</h2><h3 id="206-反转链表-1"><a href="#206-反转链表-1" class="headerlink" title="206. 反转链表"></a><a href="https://leetcode.cn/problems/reverse-linked-list/">206. 反转链表</a></h3><p>好理解的双指针<br>定义两个快慢指针： pre 和 cur ,cur在前(右边),pre在后(左边)<br>每次让 pre 的 next 指向 cur ，实现一次局部反转<br>局部反转完成之后，pre和 cur 同时步进一<br>循环上述过程</p><figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></div></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> ListNode <span class="hljs-title function_">reverseList</span><span class="hljs-params">(ListNode head)</span> &#123;<br>        <span class="hljs-type">ListNode</span> <span class="hljs-variable">pre</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-type">ListNode</span> <span class="hljs-variable">cur</span> <span class="hljs-operator">=</span> head;<br>        <span class="hljs-type">ListNode</span> <span class="hljs-variable">tem</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br><br><br>        <span class="hljs-keyword">while</span>(cur!=<span class="hljs-literal">null</span>)&#123;<br><br>            tem = cur.next;<span class="hljs-comment">// 保存下一个节点,将head.next指向前一个节点,那么原先的head.next会丢失所以要用临时tem节点指向head.next</span><br>            cur.next = pre;<span class="hljs-comment">//已保存,这一步就将将head.next指向前一个节点,即pre节点,head.next用cur.next代替</span><br>            pre = cur;<br>            cur = tem;<span class="hljs-comment">//循环移动两个快慢指针</span><br><br>        &#125;<br><br>        <span class="hljs-keyword">return</span> pre;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><h3 id="24-两两交换链表中的节点-1"><a href="#24-两两交换链表中的节点-1" class="headerlink" title="24. 两两交换链表中的节点"></a><a href="https://leetcode.cn/problems/swap-nodes-in-pairs/">24. 两两交换链表中的节点</a></h3><p>给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）。</p><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dns">输入：head = [<span class="hljs-number">1,2,3,4</span>]<br>输出：[<span class="hljs-number">2,1,4,3</span>]<br></code></pre></td></tr></table></figure><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs inform7">输入：head = <span class="hljs-comment">[]</span><br>输出：<span class="hljs-comment">[]</span><br></code></pre></td></tr></table></figure><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs inform7">输入：head = <span class="hljs-comment">[1]</span><br>输出：<span class="hljs-comment">[1]</span><br></code></pre></td></tr></table></figure><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs accesslog">输入：head = <span class="hljs-string">[1,2,3,4,5]</span><br>输出：<span class="hljs-string">[2,1,4,3,5]</span><br></code></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<span class="hljs-comment">//注释以链表head = [1,2,3,4,5]为例</span><br>    <span class="hljs-keyword">public</span> ListNode <span class="hljs-title function_">swapPairs</span><span class="hljs-params">(ListNode head)</span> &#123;<br>        <span class="hljs-type">ListNode</span> <span class="hljs-variable">dummyNode</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ListNode</span>(<span class="hljs-number">0</span>);<br>        dummyNode.next = head;<span class="hljs-comment">//虚拟头节点还是指向head吧</span><br>        <span class="hljs-type">ListNode</span> <span class="hljs-variable">prev</span> <span class="hljs-operator">=</span> dummyNode;<br><br>        <span class="hljs-keyword">while</span> (prev.next != <span class="hljs-literal">null</span> &amp;&amp; prev.next.next != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-type">ListNode</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> head.next.next;<span class="hljs-comment">//临时存储 3 节点,因为2-&gt;3需要改为2-&gt;1,改之前标记一下,不然会丢失3节点</span><br>            prev.next = head.next;<span class="hljs-comment">//很重要的一步,分两种情况.1.第一次:将虚拟节点(以及pre节点)-&gt;2;第二次将从上一次的1-&gt;3改为1-&gt;4.</span><br>            head.next.next = head;<span class="hljs-comment">//已经临时存储了节点3,这一步就是将2-&gt;3改为2-&gt;1</span><br>            head.next = temp;<span class="hljs-comment">//第一次1-&gt;3,由于我们需要的是1-&gt;4,在下一次循环中改成1-&gt;4,也就是往上数两行的代码所做的操作</span><br>            prev = head;<span class="hljs-comment">//第一次步进一,之后步进二</span><br>            head=head.next;<span class="hljs-comment">//由于head.next = temp,temp= head.next.next,无论是第一次还是之后都是步进二</span><br><br>        &#125;<br>        <span class="hljs-keyword">return</span> dummyNode.next;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="合"><a href="#合" class="headerlink" title="合"></a>合</h2><p>链表虽然是数据结构中最基础的知识点,但也是最重要的知识点,在今后的图,数中我们总会能看到他们的身影的.</p><p>有关链表的操作请记住一下几点:</p><p>1.了解快慢指针在链表中的意义,上面两题都可以看到他们的身影</p><p>2.很多情况下链表离不开循环也离不开快慢指针</p><p>3.ListNode 节点的含义不要乱了,别名(一个节点的两个名字),你可以把节点名可以当作地址</p><p>3.注意画图的方式-&gt; —-</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>每周一炼</category>
+      
+      <category>Leetcode</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>链表</tag>
+      
+      <tag>Leetcode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>每日一烤:从集合类关系来了解集合</title>
+    <link href="/2022/09/07/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%83%A4(%E4%BB%8E%E9%9B%86%E5%90%88%E7%B1%BB%E5%85%B3%E7%B3%BB%E4%BA%86%E8%A7%A3%E9%9B%86%E5%90%88)/"/>
+    <url>/2022/09/07/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%83%A4(%E4%BB%8E%E9%9B%86%E5%90%88%E7%B1%BB%E5%85%B3%E7%B3%BB%E4%BA%86%E8%A7%A3%E9%9B%86%E5%90%88)/</url>
+    
+    <content type="html"><![CDATA[<h1 id="从集合类关系来了解集合"><a href="#从集合类关系来了解集合" class="headerlink" title="从集合类关系来了解集合"></a>从集合类<strong>关系</strong>来了解集合</h1><p>前瞻:</p><p>1.如何看Java类图</p><p>2.Java集合类简介</p><p>ps:我们暂时不去区分集合与集合的差别</p><h2 id="查看Java类图"><a href="#查看Java类图" class="headerlink" title="查看Java类图"></a>查看Java类图</h2><p>下面提到的的IDEA这些功能，可以帮助你学习和查看类关系，了解诸如主流框架源码之类知识.</p><p><img src="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202209070851391.png" alt="image-20220907085137058"></p><p>上述操作就可以查看到集合类ArrayList类是如何实现的</p><p>实线表示继承关系</p><p>虚线表示实现接口</p><p>蓝色表示继承或实现的是类</p><p>绿色表示继承或实现的是接口</p><p><img src="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202209070854753.png" alt="image-20220907085452569"></p><p>展示详细信息:</p><p><img src="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202209070925970.png" alt="image-20220907092519948"></p><p>按住Alt键可以放大</p><p>此外,你还想新加进一个类,查看他们的关系</p><p>右键选择Add Class to Diagram</p><p>当然,有时候你会发现新加进来的类和原图直接没有连线,意味着他们直接没有联系</p><h2 id="Java集合类简介"><a href="#Java集合类简介" class="headerlink" title="Java集合类简介"></a>Java集合类简介</h2><p>在 Java 中，集合大致可以分为两大体系，一个是 <strong>Collection</strong>，另一个是 <strong>Map</strong>，都位于<code>java.util</code>包下,且都有一个共同的父接口Iterator</p><ul><li><strong>Collection ：主要由 List、Set、Queue 三大接口组成</strong><ul><li><strong>List 代表有序、重复的集合</strong></li><li><strong>Set代表无序、不可重复的集合</strong></li><li><strong>Queue 体系集合，代表队列集合</strong></li></ul></li><li><strong>Map：代表有映射关系的键值对集合。</strong></li></ul><p>Iterator接口:</p><p>功能:用于遍历集合中元素的接口</p><p>主要方法:hashNext(),next(),remove()三种方法</p><p>Java集合类图:</p><img src="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202209071055373.jpg" alt="容器类" style="zoom: 50%;" /><img src="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202209071056455.jpg" alt="Map容器类图" style="zoom: 50%;" /><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接:"></a>参考链接:</h2><p>​                <a href="http://www.justdojava.com/2020/01/17/java-collection-17/">集合知识全系列回顾 (参考的这篇文章写的是真的好,而且图也很直观,搞得我都觉得我没必要写下去了,建议去看看,下一篇就从集合类的应用发展来写吧)</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>每日一烤</category>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>每日一烤</tag>
+      
+      <tag>Java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>每周一炼:链表(1)</title>
     <link href="/2022/09/06/%E6%AF%8F%E5%91%A8%E4%B8%80%E7%82%BC(%E9%93%BE%E8%A1%A81)/"/>
     <url>/2022/09/06/%E6%AF%8F%E5%91%A8%E4%B8%80%E7%82%BC(%E9%93%BE%E8%A1%A81)/</url>
@@ -22,9 +80,9 @@
     
     <tags>
       
-      <tag>Leetcode</tag>
-      
       <tag>链表</tag>
+      
+      <tag>Leetcode</tag>
       
     </tags>
     
@@ -302,9 +360,9 @@
     
     <tags>
       
-      <tag>二分查找</tag>
-      
       <tag>Leetcode</tag>
+      
+      <tag>二分查找</tag>
       
     </tags>
     
@@ -418,9 +476,9 @@
     
     <tags>
       
-      <tag>二分查找</tag>
-      
       <tag>Leetcode</tag>
+      
+      <tag>二分查找</tag>
       
     </tags>
     
