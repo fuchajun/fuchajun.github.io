@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>Mysql学习笔记(2)</title>
+    <link href="/2022/09/18/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(2)/"/>
+    <url>/2022/09/18/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(2)/</url>
+    
+    <content type="html"><![CDATA[<h1 id="MVCC部分名词解释"><a href="#MVCC部分名词解释" class="headerlink" title="MVCC部分名词解释"></a>MVCC部分名词解释</h1><p>记录给自己看,会比较乱,望谅解.</p><h3 id="隐藏列"><a href="#隐藏列" class="headerlink" title="隐藏列"></a>隐藏列</h3><ul><li>对于InnoDB存储引擎，每一行记录都有两个隐藏列<strong>trx_id</strong>、<strong>roll_pointer</strong>，如果表中没有主键和非NULL唯一键时，则还会有第三个隐藏的主键列<strong>row_id</strong>。</li></ul><h3 id="版本链"><a href="#版本链" class="headerlink" title="版本链"></a>版本链</h3><ul><li><p>多个事务并行操作某一行数据时，不同事务对该行数据的修改会产生多个版本，然后通过回滚指针（roll_pointer），连成一个链表，这个链表就称为<strong>版本链</strong>。如下：</p><p><img src="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202209181854965.png" alt="image-20220918185442529"></p><p>通过版本链，我们就可以看出<strong>事务版本号、表格隐藏的列和undo log</strong>它们之间的关系。</p></li></ul><h3 id="ReadView"><a href="#ReadView" class="headerlink" title="ReadView"></a>ReadView</h3><ul><li>它是事务执行SQL语句时，产生的读视图。实际上在InnoDB中，每个SQL语句执行前都会得到一个ReadView。</li><li>它主要是用来做可见性判断的，即判断当前事务可见哪个版本的数据</li></ul><h3 id="读已提交和可重复读的readView更新是有区别的"><a href="#读已提交和可重复读的readView更新是有区别的" class="headerlink" title="读已提交和可重复读的readView更新是有区别的"></a>读已提交和可重复读的readView更新是有区别的</h3><ul><li><p>READ COMMITTED(读已提交)</p><p>每次读数据前都生成一个ReadView</p></li><li><p>REPEATABLE READ(可重复读)</p><p>在第一次读数据时生成一个ReadView</p></li></ul><h3 id="ReadView里面都有啥"><a href="#ReadView里面都有啥" class="headerlink" title="ReadView里面都有啥?"></a>ReadView里面都有啥?</h3><ul><li><p><strong>m_ids:当前系统中那些活跃(未提交)的读写事务ID, 它数据结构为一个List。</strong></p></li><li><p>min_limit_id:表示在生成ReadView时，当前系统中活跃的读写事务中最小的事务id，即m_ids中的最小值。</p></li><li><p>max_limit_id:表示生成ReadView时，系统中应该分配给下一个事务的id值。</p></li><li><p>creator_trx_id: 创建当前read view的事务ID</p></li></ul><p><strong>InnoDB通过Gap-Lock(间隙锁)在可重复读的基础上解决了幻读</strong></p><p><a href="https://juejin.cn/post/7016165148020703246">参考链接:看一遍就理解：MVCC原理详解</a></p><p><a href="https://www.bilibili.com/video/BV1W64y1u761?p=44&vd_source=1fb1e3c636db747e05f4582c307a55be&t=68.0">复习回顾时如有疑惑请点击</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>Mysql</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Mysql</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>每日一烤:HashMap的一点知识</title>
     <link href="/2022/09/15/HashMap%E7%9A%84%E4%B8%80%E7%82%B9%E7%9F%A5%E8%AF%86/"/>
     <url>/2022/09/15/HashMap%E7%9A%84%E4%B8%80%E7%82%B9%E7%9F%A5%E8%AF%86/</url>

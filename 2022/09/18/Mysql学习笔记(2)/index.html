@@ -16,22 +16,23 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="HashMap的一点知识HashMap是一个存储key-value键值对的容器,key唯一,value不唯一 其内部的数据结构采用的是散列表,即数组加链表,取长补短,实现查询效率无限接近O(1) 为了达到查询效率接近O(1)需要做的处理1.如何减少哈希冲突(元素足够散列)? 干扰函数的使用 将元素hash值进行高低位的异或,使得参与运算的hash值同时具备原hash值高位与低位的特征,增大随机性">
+    <meta name="description" content="MVCC部分名词解释记录给自己看,会比较乱,望谅解. 隐藏列 对于InnoDB存储引擎，每一行记录都有两个隐藏列trx_id、roll_pointer，如果表中没有主键和非NULL唯一键时，则还会有第三个隐藏的主键列row_id。  版本链 多个事务并行操作某一行数据时，不同事务对该行数据的修改会产生多个版本，然后通过回滚指针（roll_pointer），连成一个链表，这个链表就称为版本链。如下：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="每日一烤:HashMap的一点知识">
-<meta property="og:url" content="http://example.com/2022/09/15/HashMap%E7%9A%84%E4%B8%80%E7%82%B9%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:title" content="Mysql学习笔记(2)">
+<meta property="og:url" content="http://example.com/2022/09/18/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(2)/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="HashMap的一点知识HashMap是一个存储key-value键值对的容器,key唯一,value不唯一 其内部的数据结构采用的是散列表,即数组加链表,取长补短,实现查询效率无限接近O(1) 为了达到查询效率接近O(1)需要做的处理1.如何减少哈希冲突(元素足够散列)? 干扰函数的使用 将元素hash值进行高低位的异或,使得参与运算的hash值同时具备原hash值高位与低位的特征,增大随机性">
+<meta property="og:description" content="MVCC部分名词解释记录给自己看,会比较乱,望谅解. 隐藏列 对于InnoDB存储引擎，每一行记录都有两个隐藏列trx_id、roll_pointer，如果表中没有主键和非NULL唯一键时，则还会有第三个隐藏的主键列row_id。  版本链 多个事务并行操作某一行数据时，不同事务对该行数据的修改会产生多个版本，然后通过回滚指针（roll_pointer），连成一个链表，这个链表就称为版本链。如下：">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-09-15T12:39:12.000Z">
-<meta property="article:modified_time" content="2022-09-15T12:55:16.645Z">
+<meta property="og:image" content="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202209181854965.png">
+<meta property="article:published_time" content="2022-09-18T11:05:13.000Z">
+<meta property="article:modified_time" content="2022-09-18T11:09:43.135Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="每日一烤">
-<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Mysql">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202209181854965.png">
   
   
-  <title>每日一烤:HashMap的一点知识 - Hexo</title>
+  <title>Mysql学习笔记(2) - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -182,7 +183,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="每日一烤:HashMap的一点知识">
+            <span class="h2" id="subtitle" title="Mysql学习笔记(2)">
               
             </span>
 
@@ -192,8 +193,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-09-15 20:39" pubdate>
-        2022年9月15日 晚上
+      <time datetime="2022-09-18 19:05" pubdate>
+        2022年9月18日 晚上
       </time>
     </span>
   
@@ -203,7 +204,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      936 字
+      694 字
     </span>
   
 
@@ -212,7 +213,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8 分钟
+      6 分钟
     </span>
   
 
@@ -241,38 +242,44 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">每日一烤:HashMap的一点知识</h1>
+            <h1 style="display: none">Mysql学习笔记(2)</h1>
             
             <div class="markdown-body">
-              <h1 id="HashMap的一点知识"><a href="#HashMap的一点知识" class="headerlink" title="HashMap的一点知识"></a>HashMap的一点知识</h1><p>HashMap是一个存储key-value键值对的容器,key唯一,value不唯一</p>
-<p>其内部的数据结构采用的是散列表,即数组加链表,取长补短,实现查询效率无限接近O(1)</p>
-<h2 id="为了达到查询效率接近O-1-需要做的处理"><a href="#为了达到查询效率接近O-1-需要做的处理" class="headerlink" title="为了达到查询效率接近O(1)需要做的处理"></a>为了达到查询效率接近O(1)需要做的处理</h2><h3 id="1-如何减少哈希冲突-元素足够散列"><a href="#1-如何减少哈希冲突-元素足够散列" class="headerlink" title="1.如何减少哈希冲突(元素足够散列)?"></a>1.如何减少哈希冲突(元素足够散列)?</h3><ul>
-<li>干扰函数的使用<ul>
-<li>将元素hash值进行高低位的异或,使得参与运算的hash值同时具备原hash值高位与低位的特征,增大随机性<ul>
-<li>右移16位&gt;&gt;&gt;16,为啥能增大随机性:举个例子,老师点名,班级有三个同学,那你一定很慌,但如果班级里有三千个,那你肯定不慌了,数字越大随机性越大</li>
+              <h1 id="MVCC部分名词解释"><a href="#MVCC部分名词解释" class="headerlink" title="MVCC部分名词解释"></a>MVCC部分名词解释</h1><p>记录给自己看,会比较乱,望谅解.</p>
+<h3 id="隐藏列"><a href="#隐藏列" class="headerlink" title="隐藏列"></a>隐藏列</h3><ul>
+<li>对于InnoDB存储引擎，每一行记录都有两个隐藏列<strong>trx_id</strong>、<strong>roll_pointer</strong>，如果表中没有主键和非NULL唯一键时，则还会有第三个隐藏的主键列<strong>row_id</strong>。</li>
 </ul>
+<h3 id="版本链"><a href="#版本链" class="headerlink" title="版本链"></a>版本链</h3><ul>
+<li><p>多个事务并行操作某一行数据时，不同事务对该行数据的修改会产生多个版本，然后通过回滚指针（roll_pointer），连成一个链表，这个链表就称为<strong>版本链</strong>。如下：</p>
+<p><img src="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202209181854965.png" srcset="/img/loading.gif" lazyload alt="image-20220918185442529"></p>
+<p>通过版本链，我们就可以看出<strong>事务版本号、表格隐藏的列和undo log</strong>它们之间的关系。</p>
 </li>
 </ul>
+<h3 id="ReadView"><a href="#ReadView" class="headerlink" title="ReadView"></a>ReadView</h3><ul>
+<li>它是事务执行SQL语句时，产生的读视图。实际上在InnoDB中，每个SQL语句执行前都会得到一个ReadView。</li>
+<li>它主要是用来做可见性判断的，即判断当前事务可见哪个版本的数据</li>
+</ul>
+<h3 id="读已提交和可重复读的readView更新是有区别的"><a href="#读已提交和可重复读的readView更新是有区别的" class="headerlink" title="读已提交和可重复读的readView更新是有区别的"></a>读已提交和可重复读的readView更新是有区别的</h3><ul>
+<li><p>READ COMMITTED(读已提交)</p>
+<p>每次读数据前都生成一个ReadView</p>
 </li>
-<li>散列数组为2的倍数的长度<ul>
-<li>会出现0111,除高位以外全是1的特征,为了散列,同时还提高了计算hash值的效率</li>
-</ul>
+<li><p>REPEATABLE READ(可重复读)</p>
+<p>在第一次读数据时生成一个ReadView</p>
 </li>
 </ul>
-<h3 id="2-数组越小-碰撞越大-数组越大-碰撞越小-时间和空间如何取舍"><a href="#2-数组越小-碰撞越大-数组越大-碰撞越小-时间和空间如何取舍" class="headerlink" title="2.数组越小,碰撞越大,数组越大,碰撞越小,时间和空间如何取舍?"></a>2.数组越小,碰撞越大,数组越大,碰撞越小,时间和空间如何取舍?</h3><ul>
-<li>数组定义足够大,数组的大小为int类型约40亿**(不现实)**</li>
-<li>合适的时机对数组进行扩容(扩容因子为0.75)</li>
+<h3 id="ReadView里面都有啥"><a href="#ReadView里面都有啥" class="headerlink" title="ReadView里面都有啥?"></a>ReadView里面都有啥?</h3><ul>
+<li><p><strong>m_ids:当前系统中那些活跃(未提交)的读写事务ID, 它数据结构为一个List。</strong></p>
+</li>
+<li><p>min_limit_id:表示在生成ReadView时，当前系统中活跃的读写事务中最小的事务id，即m_ids中的最小值。</p>
+</li>
+<li><p>max_limit_id:表示生成ReadView时，系统中应该分配给下一个事务的id值。</p>
+</li>
+<li><p>creator_trx_id: 创建当前read view的事务ID</p>
+</li>
 </ul>
-<h3 id="3-默认通过拉链法处理哈希冲突-但链表过长怎么办"><a href="#3-默认通过拉链法处理哈希冲突-但链表过长怎么办" class="headerlink" title="3.默认通过拉链法处理哈希冲突,但链表过长怎么办?"></a>3.默认通过<strong>拉链法</strong>处理哈希冲突,但链表过长怎么办?</h3><ul>
-<li>超过8,采用数组+自平衡的红黑树,查询效率接近O(logn)</li>
-<li>回到6时,回到采用数组+链表的结构</li>
-</ul>
-<h2 id="JDK8对hashmap做了那些优化"><a href="#JDK8对hashmap做了那些优化" class="headerlink" title="JDK8对hashmap做了那些优化?"></a>JDK8对hashmap做了那些优化?</h2><p>1.数组+链表改成了数据+链表或红黑树</p>
-<p>2.量表插入方式头插法改尾插法</p>
-<p>3.扩容的时候.JDK7对原数组中的元素进行重新hash定位在新数组当中的位置,1.8采用更简单的判断逻辑:位置不变或者索引+旧容量大小</p>
-<p>4.JDK7判断是否需要扩容再插入,JDK8先插入再判断是否扩容</p>
-<p>5.JDK7死循环,数据丢失,数据覆盖的问题,JDK8采用尾插法可避免死循环这一问题,但数据丢失以及数据覆盖未解决,<strong>毕竟是线程不安全的数据结构</strong>.</p>
-<p>[参考链接:HashMap这次是真的懂了，扰动函数、负载因子、扩容拆分全搞定 - 知乎 (zhihu.com)](<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/309991114#:~:text=%E6%89%B0%E5%8A%A8%E5%87%BD%E6%95%B0">https://zhuanlan.zhihu.com/p/309991114#:~:text=扰动函数</a> 在HashMap存放元素时候有这样一段代码来处理哈希值，这是java 8的散列值扰动函数，用于优化散列效果； static final int hash (Object,()) ^ (h &gt;&gt;&gt; 16)%3B } 2.1 为什么使用扰动函数)</p>
+<p><strong>InnoDB通过Gap-Lock(间隙锁)在可重复读的基础上解决了幻读</strong></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7016165148020703246">参考链接:看一遍就理解：MVCC原理详解</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1W64y1u761?p=44&vd_source=1fb1e3c636db747e05f4582c307a55be&t=68.0">复习回顾时如有疑惑请点击</a></p>
 
             </div>
             <hr>
@@ -282,9 +289,9 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%83%A4/">每日一烤</a>
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
                     
-                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                      <a class="hover-with-bg" href="/categories/Mysql/">Mysql</a>
                     
                   </div>
                 
@@ -292,9 +299,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%83%A4/">每日一烤</a>
-                    
-                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                      <a class="hover-with-bg" href="/tags/Mysql/">Mysql</a>
                     
                   </div>
                 
@@ -311,18 +316,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/09/18/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(2)/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Mysql学习笔记(2)</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/09/12/%E7%94%B5%E5%BD%B1%E8%8A%B1%E6%9D%9F%E8%88%AC%E7%9A%84%E6%81%8B%E7%88%B1%E5%AF%B9%E7%99%BD/">
-                        <span class="hidden-mobile">电影<<花束般的恋爱>>对白</span>
+                      <a href="/2022/09/15/HashMap%E7%9A%84%E4%B8%80%E7%82%B9%E7%9F%A5%E8%AF%86/">
+                        <span class="hidden-mobile">每日一烤:HashMap的一点知识</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
