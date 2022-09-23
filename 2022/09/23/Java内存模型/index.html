@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202209231635634.webp">
 <meta property="og:image" content="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202209231622518.webp">
 <meta property="article:published_time" content="2022-09-23T08:15:13.000Z">
-<meta property="article:modified_time" content="2022-09-23T08:38:44.294Z">
+<meta property="article:modified_time" content="2022-09-23T08:43:15.776Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="多线程">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      795 字
+      804 字
     </span>
   
 
@@ -254,14 +254,14 @@
 <p>本地内存:每个内存都有一个私有的本地内存来存储共享变量的副本,并且每个线程只可以访问自己的本地内存不可以访问其他线程的本地内存.</p>
 <h3 id="JMM操作流程图"><a href="#JMM操作流程图" class="headerlink" title="JMM操作流程图:"></a>JMM操作流程图:</h3><img src="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202209231622518.webp" srcset="/img/loading.gif" lazyload alt="JMM操作流程图" style="zoom: 67%;" />
 
-<h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性:"></a>原子性:</h2><p>解释:一次操作或者多次操作要么全部执行,要么受到影响全部都不执行.</p>
+<h2 id="并发编程三大特性"><a href="#并发编程三大特性" class="headerlink" title="并发编程三大特性:"></a>并发编程三大特性:</h2><h3 id="原子性"><a href="#原子性" class="headerlink" title="原子性:"></a>原子性:</h3><p>解释:一次操作或者多次操作要么全部执行,要么受到影响全部都不执行.</p>
 <p>实现:在Java中,我们可以使用<strong>synchronize</strong>和<strong>Lock</strong>或者<strong>原子类</strong>来保证原子性不被破坏.</p>
 <p>synchronize和各种Lock都是通过上锁的来保证任何时刻当前代码块只有一个线程访问.</p>
 <p>原子类则是会用CAS(compare and swap)操作(也有可能会用到volatile和final关键字)来保证原子操作.</p>
-<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性:"></a>可见性:</h2><p>解释:当一个线程对共享变量进行了修改,那么另外的线程都是可以立刻查看到修改后的共享变量值.</p>
+<h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性:"></a>可见性:</h3><p>解释:当一个线程对共享变量进行了修改,那么另外的线程都是可以立刻查看到修改后的共享变量值.</p>
 <p>实现:我们可以使用synchronize,volatile以及各种Lock实现可见性.</p>
 <p>当我们用volatile关键字来修饰变量是,就是在指示JVM,这个变量是共享不稳定的,每一次使用它都要到主存中读取,而非是使用工作内存(本地内存)的共享变量副本.</p>
-<h2 id="有序性"><a href="#有序性" class="headerlink" title="有序性:"></a>有序性:</h2><p>解释:由于指令重排序的存在,代码的执行顺序未必都是按照编写时的顺寻.</p>
+<h3 id="有序性"><a href="#有序性" class="headerlink" title="有序性:"></a>有序性:</h3><p>解释:由于指令重排序的存在,代码的执行顺序未必都是按照编写时的顺寻.</p>
 <p>实现:在java中使用volatile关键字可以禁止代码进行重排序优化.</p>
 <h2 id="happens-before常见原则有哪些"><a href="#happens-before常见原则有哪些" class="headerlink" title="happens-before常见原则有哪些?"></a>happens-before常见原则有哪些?</h2><p>1.程序顺序规则</p>
 <p>2.解锁规则</p>
