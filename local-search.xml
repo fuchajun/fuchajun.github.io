@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>并发编程的三大特性</title>
+    <link href="/2022/09/23/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/"/>
+    <url>/2022/09/23/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Java内存模型JMM-Java-Memory-Model"><a href="#Java内存模型JMM-Java-Memory-Model" class="headerlink" title="Java内存模型JMM(Java Memory Model)"></a>Java内存模型JMM(Java Memory Model)</h1><h3 id="JMM结构图"><a href="#JMM结构图" class="headerlink" title="JMM结构图:"></a>JMM结构图:</h3><img src="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202209231635634.webp" alt="JMM模型控制图" style="zoom: 67%;" /><h3 id="JMM与Java内存区域概念解析"><a href="#JMM与Java内存区域概念解析" class="headerlink" title="JMM与Java内存区域概念解析:"></a>JMM与Java内存区域概念解析:</h3><p>JVM内存结构和Java虚拟机的运行时区域相关,JVM在运行时如何分区存储程序数据,例如堆用来存放对象实例.</p><p>JMM 和 Java并发编程相关,抽象类线程与主内存之间的关系,例如线程间的共享变量必须存储到主内存中.</p><h3 id="JMM中的主内存和本地内存-工作内存"><a href="#JMM中的主内存和本地内存-工作内存" class="headerlink" title="JMM中的主内存和本地内存(工作内存):"></a>JMM中的主内存和本地内存(工作内存):</h3><p>主内存:用于存储共享变量,所有线程创建的实例对象都存放在主内存中,不管该实例对象是成员变量还是方法中的本地变量.</p><p>本地内存:每个内存都有一个私有的本地内存来存储共享变量的副本,并且每个线程只可以访问自己的本地内存不可以访问其他线程的本地内存.</p><h3 id="JMM操作流程图"><a href="#JMM操作流程图" class="headerlink" title="JMM操作流程图:"></a>JMM操作流程图:</h3><img src="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202209231622518.webp" alt="JMM操作流程图" style="zoom: 67%;" /><h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性:"></a>原子性:</h2><p>解释:一次操作或者多次操作要么全部执行,要么受到影响全部都不执行.</p><p>实现:在Java中,我们可以使用<strong>synchronize</strong>和<strong>Lock</strong>或者<strong>原子类</strong>来保证原子性不被破坏.</p><p>synchronize和各种Lock都是通过上锁的来保证任何时刻当前代码块只有一个线程访问.</p><p>原子类则是会用CAS(compare and swap)操作(也有可能会用到volatile和final关键字)来保证原子操作.</p><h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性:"></a>可见性:</h2><p>解释:当一个线程对共享变量进行了修改,那么另外的线程都是可以立刻查看到修改后的共享变量值.</p><p>实现:我们可以使用synchronize,volatile以及各种Lock实现可见性.</p><p>当我们用volatile关键字来修饰变量是,就是在指示JVM,这个变量是共享不稳定的,每一次使用它都要到主存中读取,而非是使用工作内存(本地内存)的共享变量副本.</p><h2 id="有序性"><a href="#有序性" class="headerlink" title="有序性:"></a>有序性:</h2><p>解释:由于指令重排序的存在,代码的执行顺序未必都是按照编写时的顺寻.</p><p>实现:在java中使用volatile关键字可以禁止代码进行重排序优化.</p><h2 id="happens-before常见原则有哪些"><a href="#happens-before常见原则有哪些" class="headerlink" title="happens-before常见原则有哪些?"></a>happens-before常见原则有哪些?</h2><p>1.程序顺序规则</p><p>2.解锁规则</p><p>3.volatile变量规则</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>多线程</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>多线程</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Mysql学习笔记(2)</title>
     <link href="/2022/09/18/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(2)/"/>
     <url>/2022/09/18/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(2)/</url>
