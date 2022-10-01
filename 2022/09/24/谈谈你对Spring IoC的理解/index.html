@@ -16,19 +16,39 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="website">
-<meta property="og:title" content="归档">
-<meta property="og:url" content="http://example.com/archives/2022/07/page/4/index.html">
+    <meta name="description" content="谈谈你对Spring IoC的理解.IoC:就是控制反转,指创建对象的控制权的转移. 未引入IoC思想时,创建对象的主动权和时机是由自己把控的. 引入IoC思想后,由Spring 的 IoC容器把控,并由容器根据配置文件去创建和管理各个实例之间的依赖关系. 最直观的表达:IoC让对象的创建不用去new了,可以由Spring自动生成,通过java的反射机制,根据配置文件在运行时动态地去创建对象以及管">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谈谈你对Spring IoC的理解">
+<meta property="og:url" content="http://example.com/2022/09/24/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9Spring%20IoC%E7%9A%84%E7%90%86%E8%A7%A3/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="谈谈你对Spring IoC的理解.IoC:就是控制反转,指创建对象的控制权的转移. 未引入IoC思想时,创建对象的主动权和时机是由自己把控的. 引入IoC思想后,由Spring 的 IoC容器把控,并由容器根据配置文件去创建和管理各个实例之间的依赖关系. 最直观的表达:IoC让对象的创建不用去new了,可以由Spring自动生成,通过java的反射机制,根据配置文件在运行时动态地去创建对象以及管">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-24T09:24:39.000Z">
+<meta property="article:modified_time" content="2022-09-28T09:27:06.642Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Springboot">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>归档 - Hexo</title>
+  <title>谈谈你对Spring IoC的理解 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -60,7 +80,7 @@
 
 
 <body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -161,9 +181,43 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="归档">
+            <span class="h2" id="subtitle" title="谈谈你对Spring IoC的理解">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-09-24 17:24" pubdate>
+        2022年9月24日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      290 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      3 分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -176,100 +230,109 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 75 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2022</p>
-    
-    <a href="/2022/07/15/%E7%AE%80%E8%BF%B0%E9%87%8D%E8%BD%BD%E4%B8%8E%E9%87%8D%E5%86%99%E7%9A%84%E5%8C%BA%E5%88%AB/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:简述重载与重写的区别</span>
-      <time style="float: right;">07-15</time>
-    </a>
-  
-    
-    <a href="/2022/07/14/Java%E7%9A%84%E5%A4%9A%E6%80%81%E6%9C%BA%E5%88%B6/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:Java提供的多态机制</span>
-      <time style="float: right;">07-14</time>
-    </a>
-  
-    
-    <a href="/2022/07/13/%E5%AD%97%E8%8A%82%E5%BA%8F%E5%AE%9A%E4%B9%89%E4%BB%A5%E5%8F%8AJava%E5%B1%9E%E4%BA%8E%E5%93%AA%E7%A7%8D%E5%AD%97%E8%8A%82%E5%BA%8F/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:字节序定义以及Java属于哪种字节序</span>
-      <time style="float: right;">07-13</time>
-    </a>
-  
-    
-    <a href="/2022/07/12/Java%E8%AF%AD%E8%A8%80%E5%85%B7%E6%9C%89%E5%93%AA%E4%BA%9B%E7%89%B9%E7%82%B9/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:Java语言具有哪些特点？</span>
-      <time style="float: right;">07-12</time>
-    </a>
-  
-    
-    <a href="/2022/07/11/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:面向对象的三大特性？</span>
-      <time style="float: right;">07-11</time>
-    </a>
-  
-    
-    <a href="/2022/07/10/%E7%AE%80%E8%BF%B0throw%E4%B8%8Ethrows%E7%9A%84%E5%8C%BA%E5%88%AB/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:简述throw与throws的区别</span>
-      <time style="float: right;">07-10</time>
-    </a>
-  
-    
-    <a href="/2022/07/09/Java%E5%85%B3%E9%94%AE%E5%AD%97(static)/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:Java关键字(static)</span>
-      <time style="float: right;">07-09</time>
-    </a>
-  
-    
-    <a href="/2022/07/08/Java%E5%85%B3%E9%94%AE%E5%AD%97(%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6)/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:Java关键字(访问修饰符)</span>
-      <time style="float: right;">07-08</time>
-    </a>
-  
-    
-    <a href="/2022/07/07/%E5%85%B3%E4%BA%8Enull%E7%9A%84%E5%87%A0%E7%A7%8D%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:关于null的几种处理方式</span>
-      <time style="float: right;">07-07</time>
-    </a>
-  
-    
-    <a href="/2022/07/06/Java-%E7%9A%84%E4%B8%80%E7%82%B9%E7%9F%A5%E8%AF%86%E7%82%B9/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">每日一烤:Java 的一点知识点?</span>
-      <time style="float: right;">07-06</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">谈谈你对Spring IoC的理解</h1>
+            
+            <div class="markdown-body">
+              <h1 id="谈谈你对Spring-IoC的理解"><a href="#谈谈你对Spring-IoC的理解" class="headerlink" title="谈谈你对Spring IoC的理解."></a>谈谈你对Spring IoC的理解.</h1><p>IoC:就是控制反转,指创建对象的控制权的转移.</p>
+<p>未引入IoC思想时,创建对象的主动权和时机是由自己把控的.</p>
+<p>引入IoC思想后,由Spring 的 IoC容器把控,并由容器根据配置文件去创建和管理各个实例之间的依赖关系.</p>
+<p>最直观的表达:IoC让对象的创建不用去new了,可以由Spring自动生成,通过java的反射机制,根据配置文件在运行时动态地去创建对象以及管理对象.</p>
+<h3 id="意义"><a href="#意义" class="headerlink" title="意义:"></a>意义:</h3><ul>
+<li>IoC让相互协作的组件保持松散的耦合</li>
+<li>AOP编程容许你把遍布于应用各层的功能 分离出来 形成可重用的功能组价.</li>
+</ul>
+<h3 id="Spring-的-IoC的三种注入方式"><a href="#Spring-的-IoC的三种注入方式" class="headerlink" title="Spring 的 IoC的三种注入方式:"></a>Spring 的 IoC的三种注入方式:</h3><ul>
+<li>构造器注入</li>
+<li>setter方法注入</li>
+<li>注解注入</li>
+</ul>
 
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/archives/2022/07/page/3/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/archives/2022/07/">1</a><a class="page-number" href="/archives/2022/07/page/2/#board">2</a><a class="page-number" href="/archives/2022/07/page/3/#board">3</a><span class="page-number current">4</span><a class="page-number" href="/archives/2022/07/page/5/#board">5</a><a class="extend next" rel="next" href="/archives/2022/07/page/5/#board"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
-
-
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Springboot/">Springboot</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Springboot/">Springboot</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/01/Spring%E7%9F%A5%E8%AF%86%E8%A6%81%E7%82%B9%E5%9B%9E%E9%A1%BE(1)/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Spring要点记忆(1)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/23/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/">
+                        <span class="hidden-mobile">并发编程的三大特性</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -352,6 +415,19 @@
   
 
 
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
 
 
 

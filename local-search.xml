@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>Spring要点记忆(1)</title>
+    <link href="/2022/10/01/Spring%E7%9F%A5%E8%AF%86%E8%A6%81%E7%82%B9%E5%9B%9E%E9%A1%BE(1)/"/>
+    <url>/2022/10/01/Spring%E7%9F%A5%E8%AF%86%E8%A6%81%E7%82%B9%E5%9B%9E%E9%A1%BE(1)/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Spring知识要点总结"><a href="#Spring知识要点总结" class="headerlink" title="Spring知识要点总结"></a>Spring知识要点总结</h1><h2 id="关于Spring"><a href="#关于Spring" class="headerlink" title="关于Spring"></a>关于Spring</h2><p>简言之:spring是框架,是容器,是生态,核心功能是IoC和Aop.</p><p>框架:Spring是开源的轻量级Java开发框架,它接管了Web层、业务层、DAO层、持久性层的组件，并可以配置各种bean并维护bean到bean的关系。 其核心是控制反转(IOC)和面向方面(AOP).</p><p>容器:Spring也可以理解为一个用于降低代码耦合度的容器,可以管理对象的生命周期,对象与对象之间的的依赖关系.主要采用IoC（用于主业务逻辑解耦合）和AOP（用于系统级服务与主业务逻辑解耦合）两种技术进行解耦合.</p><p>生态:语言的流行通常需要一个杀手级的应用，Spring 就是 Java 生态的一个杀手级的应用框架,围绕Spring的框架相当成熟与完善,Spring本身即为生态.</p><h2 id="Spring-Spring-MVC-Spring-Boot-之间什么关系"><a href="#Spring-Spring-MVC-Spring-Boot-之间什么关系" class="headerlink" title="Spring,Spring MVC,Spring Boot 之间什么关系?"></a>Spring,Spring MVC,Spring Boot 之间什么关系?</h2><p>简言之:</p><ul><li><p>Spring是一个开源容器框架</p></li><li><p>SpringMVC是一个MVC的开源框架，SpringMVC&#x3D;struts2+spring，Struts2本质上是一个servlet,SpringMVC可以理解为是Spring对Servlet的封装.</p></li><li><p>Springboot是一个微服务框架，延续了spring框架的核心思想IOC和AOP，<strong>简化了应用的开发和部署</strong>。Spring Boot是为了简化Spring应用的创建、运行、调试、部署等而出现的，使用它可以做到专注于Spring应用的开发，而无需过多关注XML的配置。提供了一堆依赖打包，并已经按照使用习惯解决了依赖问题—&gt;习惯大于约定。</p></li></ul><h2 id="Spring的核心功能模块"><a href="#Spring的核心功能模块" class="headerlink" title="Spring的核心功能模块"></a>Spring的核心功能模块</h2><p>自顶而下:Data Access,Web-&gt;AOP……-&gt;Core(Beans,Core,Context,SpEL)-&gt;Test</p><p>自底而上:Test-&gt;Core Container(Beans,Core,Context,SpEL)-&gt;AOP ……-&gt;Data Access&#x2F;Integration,Web</p><img src="https://gcore.jsdelivr.net/gh/fuchajun/blogImgs/img/202210012335399.png" alt="Spring核心模块" style="zoom: 80%;" /><h3 id="Data-Access-x2F-Integrationspring-jdbc"><a href="#Data-Access-x2F-Integrationspring-jdbc" class="headerlink" title="Data Access&#x2F;Integrationspring-jdbc"></a>Data Access&#x2F;Integrationspring-jdbc</h3><p>提供了对数据库访问的抽象 JDBC。不同的数据库都有自己独立的 API 用于操作数据库，而 Java 程序只需要和 JDBC API 交互，这样就屏蔽了数据库的影响。</p><h3 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h3><p>spring-web ：对 Web 功能的实现提供一些最基础的支持。</p><p>spring-webmvc ： 提供对 Spring MVC 的实现。</p><h3 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h3><p><strong>spring-aspects</strong> ：该模块为与 AspectJ 的集成提供支持。</p><p><strong>spring-aop</strong> ：提供了面向切面的编程实现。</p><p><strong>spring-instrument</strong> ：提供了为 JVM 添加代理（agent）的功能。 具体来讲，它为 Tomcat 提供了一个织入代理，能够为 Tomcat 传递类文 件，就像这些文件是被类加载器加载的一样。没有理解也没关系，这个模块的使用场景非常有限</p><h3 id="Core-Container"><a href="#Core-Container" class="headerlink" title="Core Container"></a>Core Container</h3><p>Spring 框架的核心模块，也可以说是基础模块，主要提供 IoC 依赖注入功能的支持。</p><p>Spring <strong>其他所有的功能基本都需要依赖于该模块</strong></p><p><strong>spring-core</strong> ：Spring 框架基本的核心工具类。</p><p><strong>spring-beans</strong> ：提供对 bean 的创建、配置和管理等功能的支持。</p><p><strong>spring-context</strong> ：提供对国际化、事件传播、资源加载等功能的支持。</p><p><strong>spring-expression</strong> ：提供对表达式语言（Spring Expression Language） SpEL 的支持，只依赖于 core 模块，不依赖于其他模块，可以单独使用。</p><h3 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h3><p>Spring 团队提倡测试驱动开发（TDD）。有了控制反转 (IoC)的帮助，单元测试和集成测试变得更简单。</p><h2 id="谈谈你对Spring-IoC的理解"><a href="#谈谈你对Spring-IoC的理解" class="headerlink" title="谈谈你对Spring IoC的理解."></a>谈谈你对Spring IoC的理解.</h2><p>IoC:就是控制反转,指创建对象的控制权的转移.</p><p>未引入IoC思想时,创建对象的主动权和时机是由自己把控的.</p><p>引入IoC思想后,由Spring 的 IoC容器把控,并由容器根据配置文件去创建和管理各个实例之间的依赖关系.</p><p>最直观的表达:IoC让对象的创建不用去new了,可以由Spring自动生成,通过java的反射机制,根据配置文件在运行时动态地去创建对象以及管理对象.</p><p>为什么叫控制反转？</p><p>控制 ：指的是对象创建（实例化、管理）的权力,尤其是管理,可以管理Bean的生命周期</p><p>反转 ：控制权交给外部环境（Spring 框架、IoC 容器）</p><h3 id="意义"><a href="#意义" class="headerlink" title="意义:"></a>意义:</h3><ul><li>IoC让相互协作的组件保持松散的耦合,将对象之间的相互依赖关系交给 IoC 容器来管理，并由 IoC 容器完成对象的注入。这样可以很大程度上简化应用的开发，把应用从复杂的依赖关系中解放出来。</li><li>在 Spring 中， IoC 容器是 Spring 用来实现 IoC 的载体， IoC 容器实际上就是个 Map（key，value），Map 中存放的是各种对象。</li></ul><h2 id="Spring-的-IoC的三种注入方式"><a href="#Spring-的-IoC的三种注入方式" class="headerlink" title="Spring 的 IoC的三种注入方式:"></a>Spring 的 IoC的三种注入方式:</h2><ul><li>构造器注入</li><li>setter方法注入</li><li>注解注入</li></ul><h2 id="将一个类声明为-Bean-的注解有哪些"><a href="#将一个类声明为-Bean-的注解有哪些" class="headerlink" title="将一个类声明为 Bean 的注解有哪些?"></a>将一个类声明为 Bean 的注解有哪些?</h2><p>@Controller </p><p>@Component </p><p>@Service </p><p>@Repository</p><h2 id="Component-和-Bean-的区别是什么？"><a href="#Component-和-Bean-的区别是什么？" class="headerlink" title="@Component 和 @Bean 的区别是什么？"></a>@Component 和 @Bean 的区别是什么？</h2><p>1.作用对象 </p><p>2.装配扫描 </p><p>3.使用场景</p><h2 id="Autowired-和-Resource-的区别是什么"><a href="#Autowired-和-Resource-的区别是什么" class="headerlink" title="@Autowired 和 @Resource 的区别是什么?"></a>@Autowired 和 @Resource 的区别是什么?</h2><p>@Autowired 是 Spring 提供的注解，@Resource 是 JDK 提供的注解。</p><p>@Autowired 默认的注入方式为byType（根据类型进行匹配），@Resource默认注入方式为 byName（根据名称进行匹配）。</p><p>当一个接口存在多个实现类的情况下，@Autowired 和@Resource都需要通过名称才能正确匹配到对应的 Bean。Autowired 可以通过 @Qualifier 注解来显示指定名称，@Resource可以通过 name 属性来显示指定名称。</p><h2 id="Bean的作用域"><a href="#Bean的作用域" class="headerlink" title="Bean的作用域"></a>Bean的作用域</h2><ul><li><p>singleton</p></li><li><p>prototype</p></li><li><p>request</p><p>仅 Web 应用可用）: 每一次 HTTP 请求都会产生一个新的 bean（请求 bean），该 bean 仅在当前 HTTP request 内有效</p></li><li><p><strong>session</strong> </p><p>（仅 Web 应用可用） : 每一次来自新 session 的 HTTP 请求都会产生一个新的 bean（会话 bean），该 bean 仅在当前 HTTP session 内有效。</p></li><li><p>globalsession：</p><p>每个全局的HTTP Session，使用session定义的Bean都将产生一个新实例。</p></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>Spring</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Spring</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>谈谈你对Spring IoC的理解</title>
+    <link href="/2022/09/24/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9Spring%20IoC%E7%9A%84%E7%90%86%E8%A7%A3/"/>
+    <url>/2022/09/24/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9Spring%20IoC%E7%9A%84%E7%90%86%E8%A7%A3/</url>
+    
+    <content type="html"><![CDATA[<h1 id="谈谈你对Spring-IoC的理解"><a href="#谈谈你对Spring-IoC的理解" class="headerlink" title="谈谈你对Spring IoC的理解."></a>谈谈你对Spring IoC的理解.</h1><p>IoC:就是控制反转,指创建对象的控制权的转移.</p><p>未引入IoC思想时,创建对象的主动权和时机是由自己把控的.</p><p>引入IoC思想后,由Spring 的 IoC容器把控,并由容器根据配置文件去创建和管理各个实例之间的依赖关系.</p><p>最直观的表达:IoC让对象的创建不用去new了,可以由Spring自动生成,通过java的反射机制,根据配置文件在运行时动态地去创建对象以及管理对象.</p><h3 id="意义"><a href="#意义" class="headerlink" title="意义:"></a>意义:</h3><ul><li>IoC让相互协作的组件保持松散的耦合</li><li>AOP编程容许你把遍布于应用各层的功能 分离出来 形成可重用的功能组价.</li></ul><h3 id="Spring-的-IoC的三种注入方式"><a href="#Spring-的-IoC的三种注入方式" class="headerlink" title="Spring 的 IoC的三种注入方式:"></a>Spring 的 IoC的三种注入方式:</h3><ul><li>构造器注入</li><li>setter方法注入</li><li>注解注入</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>Springboot</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Springboot</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>并发编程的三大特性</title>
     <link href="/2022/09/23/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/"/>
     <url>/2022/09/23/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</url>
